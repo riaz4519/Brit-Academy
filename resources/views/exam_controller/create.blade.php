@@ -21,12 +21,14 @@
                                     </div>
                                     <div class="col-12 col-lg-6">
                                         <div class="form-group">
-                                            <input type="email" class="form-control" id="email" placeholder="Email">
+                                            <label>Academic Test</label>
+                                            <input type="checkbox" class="form-control" id="checkbox" placeholder="Academic Test">
                                         </div>
                                     </div>
                                     <div class="col-12 col-lg-6">
                                         <div class="form-group">
-                                            <input type="text" class="form-control" id="phone" placeholder="Phone">
+                                            <label>Academic Test</label>
+                                            <input type="checkbox" class="form-control" id="checkbox" placeholder="Academic Test">
                                         </div>
                                     </div>
                                     <div class="col-12 col-lg-6">
