@@ -14,11 +14,14 @@
 
 
 Auth::routes();
+
 Route::get('/exam_controller',function (){
 
     return view('exam_controller/index');
 
 });
+/*this is for the exam test controller*/
+Route::get('/home/test','TestController@index')->name('testHome');
 
 Route::get('/home', 'HomeController@index')->name('home');
 Route::get('/','HomeController@welcome')->name('welcome');

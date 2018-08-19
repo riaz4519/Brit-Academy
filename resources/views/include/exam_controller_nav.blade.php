@@ -33,7 +33,7 @@
                     <!-- Nav Start -->
                     <div class="classynav">
                         <ul>
-                            <li><a href="{{ url('/') }}">Create Test</a></li>
+                            <li class="active"><a href="{{ url('/') }}" >Create Test</a></li>
                             <li><a href="#">Create Exam Category</a></li>
 
 
