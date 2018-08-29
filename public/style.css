@@ -659,6 +659,8 @@ textarea:focus {
       letter-spacing: 0.75px; }
       .single-popular-course .seat-rating-fee .course-fee a.free {
         background-color: #3762f0; }
+.single-popular-course .seat-rating-fee .course-fee a.edit {
+  border-radius: 0px;!important; }
 
 .single-course-intro {
   position: relative;

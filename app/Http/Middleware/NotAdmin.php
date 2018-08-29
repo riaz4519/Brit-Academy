@@ -3,9 +3,9 @@
 namespace App\Http\Middleware;
 
 use Closure;
-use Auth;
+use Illuminate\Support\Facades\Auth;
 
-class Student
+class NotAdmin
 {
     /**
      * Handle an incoming request.
@@ -16,15 +16,11 @@ class Student
      */
     public function handle($request, Closure $next)
     {
+        if (Auth::check() && Auth::user()->role == 'admin'){
 
-        if (Auth::check() && Auth::user()->role == 'student') {
-            return $next($request);
-        }
-        elseif (Auth::check() && Auth::user()->role == 'admin'){
             return redirect()->route('admin');
+
         }
-        else {
-            return redirect()->route('login');
-        }
+        return $next($request);
     }
 }

@@ -12,30 +12,32 @@
                     <div class="col-12">
                         <div class="forms">
                             <h4>Create Test</h4>
-                            <form action="#" method="post">
+                            <form action="{{ route('createTest') }}" method="POST">
+                                {{ csrf_field() }}
                                 <div class="row">
                                     <div class="col-12 col-lg-12">
                                         <div class="form-group">
-                                            <input type="text" class="form-control" id="text" placeholder="Enter Test Name">
+                                            <input type="text" class="form-control" name="title"  id="text" placeholder="Enter Test Title" required>
+
                                         </div>
                                     </div>
+                                    {{--course type--}}
+
+                                    @foreach($courses as $course)
                                     <div class="col-12 col-lg-6">
                                         <div class="form-group">
-                                            <label>Academic Test</label>
-                                            <input type="checkbox" class="form-control" id="checkbox" placeholder="Academic Test">
+                                            <label>{{ $course->name }}</label>
+                                            <input type="checkbox" class="form-control" name="test_type[]" value="{{ $course->id }}" id="checkbox" placeholder="Academic Test">
                                         </div>
                                     </div>
-                                    <div class="col-12 col-lg-6">
-                                        <div class="form-group">
-                                            <label>Academic Test</label>
-                                            <input type="checkbox" class="form-control" id="checkbox" placeholder="Academic Test">
-                                        </div>
-                                    </div>
-                                    <div class="col-12 col-lg-6">
-                                        <div class="form-group">
-                                            <input type="text" class="form-control" id="site" placeholder="Site">
-                                        </div>
-                                    </div>
+                                    @endforeach
+                                    {{--end of course type--}}
+
+                                    {{--<div class="col-12 col-lg-6">--}}
+                                        {{--<div class="form-group">--}}
+                                            {{--<input type="text" class="form-control" id="site" placeholder="Site">--}}
+                                        {{--</div>--}}
+                                    {{--</div>--}}
                                     <div class="col-12">
                                         <button class="btn clever-btn w-100">Create</button>
                                     </div>

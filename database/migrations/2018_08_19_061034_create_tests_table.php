@@ -17,8 +17,8 @@ class CreateTestsTable extends Migration
             $table->increments('id');
             $table->string('title');
             $table->string('image');
-            $table->integer('page_view');
-            $table->boolean('status');
+            $table->integer('page_view')->default(0);
+            $table->boolean('status')->default(false);
 
 
             $table->timestamps();

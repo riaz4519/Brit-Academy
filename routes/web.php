@@ -15,13 +15,41 @@
 
 Auth::routes();
 
-Route::get('/exam_controller',function (){
-
-    return view('exam_controller/index');
-
-});
 /*this is for the exam test controller*/
-Route::get('/home/test','TestController@index')->name('testHome');
+/*----admin controller-----*/
+
+//admin home
+Route::get('/admin','AdminController@index')->name('admin');
+
+/*admin test start*/
+
+Route::get('/admin/test-list','TestListController@index')->name('test_list');
+
+Route::get('/admin/test','TestController@index')->name('createTestPage');
+
+Route::post('/admin/test','TestController@create')->name('createTest');
+
+/*admin test end*/
+
+/*start admin exam controller  */
+
+Route::get('/admin/exam/','ExamController@index')->name('examIndex');
+
+Route::get('/admin/exam/create','ExamController@createPage')->name('examCreatePage');
+
+Route::post('/admin/exam/create','ExamController@createExam')->name('createExam');
+
+Route::get('/admin/exam/exam-list','ExamController@examList')->name('examList');
+
+/*end admin exam controller  */
+
+
+
+
+
+
+/*======end admin controller========*/
+
 
 Route::get('/home', 'HomeController@index')->name('home');
 Route::get('/','HomeController@welcome')->name('welcome');

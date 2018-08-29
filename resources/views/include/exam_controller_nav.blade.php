@@ -33,15 +33,54 @@
                     <!-- Nav Start -->
                     <div class="classynav">
                         <ul>
-                            <li class="active"><a href="{{ url('/') }}" >Create Test</a></li>
-                            <li><a href="#">Create Exam Category</a></li>
+                            <li><a href="#">TEST</a>
+                                <ul class="dropdown">
 
 
-                            {{--practice exam for ielts based on categories--}}
-                            <li><a href="#">Create Practice Exam</a></li>
+                                    <li><a href="{{ route('createTestPage') }}">Create Test</a></li>
+                                    <li><a href="{{ route('test_list') }}">Test List</a></li>
+                                    <li><a href="single-course.html">Create Category</a></li>
+
+
+
+
+                                </ul>
+                            </li>
+
+
+                            {{--IElTS Exam  --}}
+                            <li><a href="{{ route('examIndex') }}">Exam</a>
+                                <ul class="dropdown">
+
+
+                                    <li><a href="{{ route('examCreatePage') }}">Create Exam</a></li>
+                                    <li><a href="{{ route('examList') }}">List of Exams</a></li>
+
+
+
+
+                                </ul>
+                            </li>
+                            {{-- end IElTS Exam  --}}
+                            {{--IElTS Exam  --}}
+                            <li><a href="#">Exam Steps</a>
+                                <ul class="dropdown">
+
+                                    <li><a href="single-course.html">Create Listening test</a></li>
+                                    <li><a href="single-course.html">Create Reading test</a></li>
+                                    <li><a href="single-course.html">Create Writing test</a></li>
+                                    <li><a href="single-course.html">Create Create test</a></li>
+
+
+
+                                </ul>
+                            </li>
+                            {{-- end IElTS Exam  --}}
+
+
 
                             {{--IElTS Exam tips --}}
-                            <li><a href="#">Create Exam Tips</a>
+                            <li><a href="#">Exam Tips</a>
                                 <ul class="dropdown">
 
 
