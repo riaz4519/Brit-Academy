@@ -39,6 +39,8 @@
     <script src="{{asset('/js/plugins/plugins.js')}}"></script>
     <!-- Active js -->
     <script src="{{asset('/js/active.js')}}"></script>
+    {{--ajax--}}
+    {{--<script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.3/jquery.min.js"></script>--}}
 
     {{--for external script--}}
     @yield('script')

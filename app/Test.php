@@ -8,11 +8,16 @@ class Test extends Model
 {
     //
 
-    protected  $fillable = ['title','image'];
+    protected  $fillable = ['title','image','description','course_id'];
 
-    public function courses(){
 
-        return $this->belongsToMany('App\Course');
+    public function course(){
 
+        return $this->belongsTo('App\Course');
+    }
+
+    public function exams(){
+
+        return $this->belongsToMany('App\Exam')->withTimestamps();
     }
 }

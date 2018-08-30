@@ -36,11 +36,13 @@
                             <img src="{{asset('img/bg-img/c1.jpg') }}" alt="">
                             <!-- Course Content -->
                             <div class="course-content">
-                                <h4>{{ $single_test->title }}</h4>
+                                <a href="{{route('addedExamsHome',$single_test->id)}}"><h4>{{ $single_test->title }}</h4></a>
                                 <div class="meta d-flex align-items-center">
                                     <a href="#">Sarah Parker</a>
                                     <span><i class="fa fa-circle" aria-hidden="true"></i></span>
-                                    <a href="#">Art &amp; Design</a>
+
+                                    <a href="#">{{ $single_test->course->name }}</a>
+
                                 </div>
                                 <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Fusce enim nulla, mollis eu metus in, sagittis</p>
                             </div>
@@ -57,8 +59,9 @@
                                 <div class="course-fee h-100">
                                     <a href="#" class="edit">Edit</a>
                                 </div>
+
                                 <div class="course-fee h-100">
-                                    <a href="#" class="free">ADD</a>
+                                    <a href="{{ route('addingExamToTest',$single_test->id) }}" class="free">ADD</a>
                                 </div>
                             </div>
                         </div>

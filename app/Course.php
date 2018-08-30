@@ -9,7 +9,7 @@ class Course extends Model
     //
     public function tests(){
 
-        return $this->belongsToMany('App\Test');
+        return $this->hasMany('App\Test');
     }
 
     public function exams(){

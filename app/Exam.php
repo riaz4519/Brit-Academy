@@ -16,4 +16,8 @@ class Exam extends Model
         return $this->belongsTo('App\Course');
     }
 
+    public function tests(){
+        return $this->belongsToMany('App\Test');
+    }
+
 }

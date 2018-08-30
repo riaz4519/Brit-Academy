@@ -28,17 +28,22 @@ class TestController extends Controller
 
         $this->validate($request,array(
 
-            'title' =>'max:255',
+            'title'       =>'max:255 | required',
+            'description' => 'min:25|required',
+            'test_type'   =>'required',
 
 
         ));
 
         $test = new Test();
 
-        $test->title = $request->title;
-        $test->image = "empty";
+        $test->title       = $request->title;
+        $test->description = $request->description;
+        $test->image       = "empty";
+        $test->course_id   = $request->test_type;
         $test->save();
-        $test->courses()->sync($request->test_type,false);
+        //$test->courses()->sync($request->test_type,false);
+        \Session::flash('msg', 'Test Created Successfully' );
         return redirect()->back();
 
 

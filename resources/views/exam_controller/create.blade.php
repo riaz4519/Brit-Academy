@@ -11,23 +11,51 @@
                 <div class="row">
                     <div class="col-12">
                         <div class="forms">
+                            @if (Session::has('msg'))
+
+                                <div class="alert alert-success alert-dismissible">
+                                    <a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>
+                                    <strong>Success!</strong>
+                                    {!!Session::get('msg')!!}
+
+                                </div>
+                            @endif
                             <h4>Create Test</h4>
                             <form action="{{ route('createTest') }}" method="POST">
                                 {{ csrf_field() }}
+
+                                @if ($errors->any())
+                                    <div class="alert alert-danger">
+                                        <ul>
+                                            @foreach ($errors->all() as $error)
+                                                <li>{{ $error }}</li>
+                                            @endforeach
+                                        </ul>
+                                    </div>
+                                @endif
                                 <div class="row">
                                     <div class="col-12 col-lg-12">
                                         <div class="form-group">
-                                            <input type="text" class="form-control" name="title"  id="text" placeholder="Enter Test Title" required>
+                                            <input type="text" class="form-control" name="title"  id="text" value="{{old('title')}}" placeholder="Enter Test Title" required>
 
                                         </div>
                                     </div>
+
+                                    {{--description--}}
+                                    <div class="col-12 col-lg-12">
+                                        <div class="form-group">
+                                            <textarea type="text" class="form-control" rows="10" cols="5"  name="description"  id="description" placeholder="Enter Test Details" required>{{ old('description') }}</textarea>
+
+                                        </div>
+                                    </div>
+                                    {{--end of description--}}
                                     {{--course type--}}
 
                                     @foreach($courses as $course)
                                     <div class="col-12 col-lg-6">
                                         <div class="form-group">
                                             <label>{{ $course->name }}</label>
-                                            <input type="checkbox" class="form-control" name="test_type[]" value="{{ $course->id }}" id="checkbox" placeholder="Academic Test">
+                                            <input type="radio" class="form-control" name="test_type" value="{{ $course->id }}" id="checkbox" placeholder="Academic Test">
                                         </div>
                                     </div>
                                     @endforeach
