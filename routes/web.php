@@ -51,6 +51,10 @@
 
     Route::get('/admin/exam/exam-list','ExamController@examList')->name('examList');
 
+    //show exams steps like listening , reading , writing
+
+    
+
 /*end admin exam controller  */
 
 

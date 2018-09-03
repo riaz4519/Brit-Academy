@@ -57,7 +57,7 @@
                             </div>
 
                             <div class="course-fee h-100">
-                                <a href="{{route('addingExamToTestSend',['id'=>Request::segment(2),'emam_id'=>$single_exam->id])}}"  class="free">ADD</a>
+                                <a href="{{route('addingExamToTestSend',['id'=>Request::segment(4),'exam_id'=>$single_exam->id])}}"  class="free">ADD</a>
                             </div>
                         </div>
                     </div>

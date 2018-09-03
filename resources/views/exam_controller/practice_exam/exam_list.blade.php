@@ -57,7 +57,7 @@
                                         <a href="#" class="edit">Edit</a>
                                     </div>
                                     <div class="course-fee h-100">
-                                        <a href="#" class="free">ADD</a>
+                                        <a href="#" class="free">show</a>
                                     </div>
                                 </div>
                             </div>
