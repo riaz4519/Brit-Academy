@@ -68,9 +68,10 @@
                                 <ul class="dropdown">
 
                                     <li><a href="single-course.html">Create Listening test</a></li>
-                                    <li><a href="single-course.html">Create Reading test</a></li>
+                                    <li><a href="{{ route('createReadingIndex') }}">Create Reading test</a></li>
                                     <li><a href="single-course.html">Create Writing test</a></li>
                                     <li><a href="single-course.html">Create Create test</a></li>
+                                    <li><a href="{{ route('showAllSteps') }}">Show All Steps</a></li>
 
 
 

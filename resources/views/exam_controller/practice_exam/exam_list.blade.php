@@ -25,6 +25,15 @@
 
                 <div class="row">
                     <!-- Single Popular Course -->
+                    @if (Session::has('msg'))
+
+                        <div class="alert alert-success alert-dismissible">
+                            <a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>
+                            <strong>Success!</strong>
+                            {!!Session::get('msg')!!}
+
+                        </div>
+                    @endif
 
                     @foreach($exams['all'] as $single_exam)
 
@@ -57,7 +66,7 @@
                                         <a href="#" class="edit">Edit</a>
                                     </div>
                                     <div class="course-fee h-100">
-                                        <a href="#" class="free">show</a>
+                                        <a href="{{ route('ExamStepsIndex',$single_exam->id) }}" class="free">show</a>
                                     </div>
                                 </div>
                             </div>
