@@ -45,8 +45,20 @@
 
         /*add section for the reading exam*/
 
-        Route::get('/admin/show-all-steps/add-section/{reading_id}','ReadingSectionController@index')->name('reading.section');
-        Route::post('/admin/show-all-steps/add-section/{reading_id}','ReadingSectionController@create')->name('reading.section.create');
+
+        //showing a specific section
+        Route::post('/admin/show-all-steps/add-section/{reading_id}/update-section/{section_id}','ReadingSectionController@update')->name('reading.updatePost.section');
+
+        Route::get('/admin/show-all-steps/add-section/{reading_id}/update-section/{section_id}','ReadingSectionController@updateSection')->name('reading.update.section');
+
+        Route::get('/admin/show-all-steps/add-section/{reading_id}/show-section/{section_id}','ReadingSectionController@showSection')->name('reading.show.section');
+
+        Route::get('/admin/show-all-steps/add-section/{reading_id}','ReadingSectionController@index')->name('reading.add-section');
+
+        Route::get('/admin/show-all-steps/add-section/{reading_id}/form','ReadingSectionController@sectionForm')->name('reading.section-form');
+
+        Route::post('/admin/show-all-steps/add-section/{reading_id}/form','ReadingSectionController@create')->name('reading.section-form.create');
+
         Route::get('check','ReadingSectionController@check')->name('check');
 
 

@@ -67,7 +67,7 @@
                                     </div>
 
                                     <div class="course-fee h-100">
-                                        <a href="{{ route('reading.section',$reading->id) }}" class="free">ADD Sec</a>
+                                        <a href="{{ route('reading.add-section',$reading->id) }}" class="free">ADD Sec</a>
                                     </div>
                                 </div>
                             </div>

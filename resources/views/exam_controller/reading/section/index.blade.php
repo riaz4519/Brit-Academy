@@ -1,79 +1,87 @@
 @extends('layout.exam_controller')
 
-
-@section('css')
-
-    <link rel="stylesheet" href="{{ asset('summernote/summernote.css') }}">
-
-    @endsection
-
-
 @section('container')
 
-<div class="container ">
+    <div class="container">
 
-    <div class="row">
-
-        <div class="col-9 justify-content-center">
-            @if (Session::has('msg'))
-
-                <div class="alert alert-success alert-dismissible">
-                    <a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>
-                    <strong>Success!</strong>
-                    {!!Session::get('msg')!!}
-
-                </div>
-            @endif
+        <div class="row mt-5" style="text-align: center">
 
 
-                @if ($errors->any())
-                    <div class="alert alert-danger">
-                        <ul>
-                            @foreach ($errors->all() as $error)
-                                <li>{{ $error }}</li>
-                            @endforeach
-                        </ul>
+            <div class="col">
+                <div class="single-test-adding col align-self-center" >
+                    <div class="number" >
+
+                            <h3 class="badge-info">SECTION ONE</h3>
                     </div>
-                @endif
-            <form method="post" action="{{route('reading.section.create',Request::segment(4))}}" class="mt-5  form-horizontal">
+                    <br>
 
-                {{ csrf_field() }}
-                <div class="form-group">
-                    <label for="title">Title</label>
 
-                    <input type="text" id="title" class="form-control" name="title">
+                    @if(!empty($sections->get(0)))
+                        <a href="{{ route('reading.update.section',['reading_id'=>$sections->get(0)->pivot->reading_id,'section_id'=>$sections->get(0)->pivot->rsection_id]) }}" class="btn btn-secondary ">UPDATE SECTION</a>
+                        <a href="{{ route('reading.show.section',['reading_id'=>$sections->get(0)->pivot->reading_id,'section_id'=>$sections->get(0)->pivot->rsection_id]) }}" class="btn btn-info">SHOW SECTION</a>
+
+                    @else
+
+                        <a href="" class="btn btn-light  ">Add SECTION </a>
+                    @endif
+
 
                 </div>
+            </div>
+            <div class="col">
+                <div class="single-test-adding col align-self-center" >
+                    <div class="number" >
+
+                        <h3 class="badge-info">SECTION TWO</h3>
+                    </div>
+                    <br>
+
+                    @if(!empty($sections->get(1)))
+                        <a href="{{ route('reading.update.section',['reading_id'=>$sections->get(1)->pivot->reading_id,'section_id'=>$sections->get(1)->pivot->rsection_id]) }}" class="btn btn-secondary ">UPDATE SECTION</a>
+                        <a href="{{ route('reading.show.section',['reading_id'=>$sections->get(1)->pivot->reading_id,'section_id'=>$sections->get(1)->pivot->rsection_id]) }}" class="btn btn-info">SHOW SECTION</a>
+
+                    @else
+
+                        <a href="{{ route('reading.section-form',Request::segment(4)) }}" class="btn btn-light  ">Add SECTION </a>
+                    @endif
 
 
-                <textarea id="summernote" name="passage" class="summernote-ui"></textarea>
-                <button type="submit"  class="btn btn-success mt-2">Submit</button>
-            </form>
+                </div>
+            </div>
+            <div class="col">
+                <div class="single-test-adding col align-self-center" >
+                    <div class="number" >
+
+                        <h3 class="badge-info">SECTION THREE</h3>
+
+                    </div>
+                    <br>
+
+                    @if(!empty($sections->get(2)))
+                        <a href="{{ route('reading.update.section',['reading_id'=>$sections->get(1)->pivot->reading_id,'section_id'=>$sections->get(2)->pivot->rsection_id]) }}" class="btn btn-secondary ">UPDATE SECTION</a>
+                        <a href="{{ route('reading.show.section',['reading_id'=>$sections->get(2)->pivot->reading_id,'section_id'=>$sections->get(2)->pivot->rsection_id]) }}" class="btn btn-info">SHOW SECTION</a>
+
+                    @else
+
+                        <a href="{{ route('reading.section-form',Request::segment(4)) }}" class="btn btn-light  ">Add SECTION </a>
+                    @endif
+
+
+                </div>
+            </div>
+
+
         </div>
+        @if (Session::has('msg'))
+
+            <div class="alert alert-danger alert-dismissible text-center">
+                <a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>
+                <strong>Success!</strong>
+                {!!Session::get('msg')!!}
+
+            </div>
+        @endif
 
     </div>
-</div>
-
-    @endsection
-
-
-
-
-@section('script')
-
-    <script src="{{ asset('summernote/summernote.js') }}"></script>
-    <script>
-
-        $(document).ready(function() {
-            $('#summernote').summernote({
-                placeholder: 'Insert Passeage for section',
-                tabsize: 2,
-                height: 200,
-
-            });
-        });
-
-
-    </script>
 
     @endsection
