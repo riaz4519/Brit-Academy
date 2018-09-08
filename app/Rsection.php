@@ -16,5 +16,10 @@ class Rsection extends Model
         return $this->belongsToMany('App\Reading');
 
     }
+    public function rsubs(){
+
+        return $this->hasMany('App\Rsub');
+
+    }
 
 }

@@ -38,7 +38,7 @@ class ReadingSectionController extends Controller
            return redirect()->back();
        }
 
-        return view('exam_controller.reading.section.section-form');
+        return view('exam_controller.reading.section.section-form')->with('count',$reading_section_count);
 
 
     }
@@ -47,7 +47,9 @@ class ReadingSectionController extends Controller
 
         $this->validate($request,[
             'passage' => 'required|min:10',
-            'title'   => 'required|min:10'
+            'title'   => 'required|min:10',
+            'start'   => 'required',
+            'end'     => 'required'
 
         ]);
 
@@ -55,15 +57,15 @@ class ReadingSectionController extends Controller
         $rsection = new Rsection();
         $rsection->passage = $request->passage;
         $rsection->title = $request->title;
-        $rsection->starts = 0;
-        $rsection->end = 0;
+        $rsection->starts = $request->start;
+        $rsection->end = $request->end;
         $rsection->image = 'empty';
         $rsection->save();
         $rsection->readings()->sync($reading_id,false);
 
-        \Session::flash('msg','Reading Updated Successfully');
+        \Session::flash('msg','Reading created Successfully');
 
-        return redirect()->back();
+        return redirect('/admin/show-all-steps/add-section/'.$reading_id);
 
 
 
@@ -76,6 +78,7 @@ class ReadingSectionController extends Controller
 
 
     public function showSection($reading_id,$section_id){
+
 
 
         $rsection = Rsection::find($section_id);
@@ -106,7 +109,9 @@ class ReadingSectionController extends Controller
 
         $this->validate($request,[
             'passage' => 'required|min:10',
-            'title'   => 'required|min:10'
+            'title'   => 'required|min:10',
+            'start'   => 'required',
+            'end'     => 'required'
 
         ]);
 
@@ -114,8 +119,8 @@ class ReadingSectionController extends Controller
         $rsection = Rsection::find($section_id);
         $rsection->passage = $request->passage;
         $rsection->title = $request->title;
-        $rsection->starts = 0;
-        $rsection->end = 0;
+        $rsection->starts = $request->start;
+        $rsection->end = $request->end;
         $rsection->image = 'empty';
         $rsection->save();
         $rsection->readings()->sync($reading_id,false);

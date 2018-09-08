@@ -13,8 +13,22 @@
 <div class="container ">
 
     <div class="row">
+        <div class="col-1">
 
-        <div class="col-9 justify-content-center">
+        </div>
+
+        <div class="col-10 justify-content-center">
+
+            <h3 class="center">
+                Please Passage @if($count == 0)
+                                   {{ 'one' }}
+                                   @elseif($count == 1)
+                                   {{ 'Two ' }}
+                                   @elseif($count == 2)
+                                   {{ 'Three' }}
+                                   @endif
+            </h3>
+
             @if (Session::has('msg'))
 
                 <div class="alert alert-success alert-dismissible">
@@ -42,6 +56,20 @@
                     <label for="title">Title</label>
 
                     <input type="text" id="title" class="form-control" name="title">
+
+                </div>
+
+                <div class="form-group">
+                    <label for="start">start</label>
+
+                    <input type="text" id="start" class="form-control" name="start">
+
+                </div>
+
+                <div class="form-group">
+                    <label for="end">end</label>
+
+                    <input type="text" id="end" class="form-control" name="end">
 
                 </div>
 

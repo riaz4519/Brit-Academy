@@ -43,7 +43,9 @@
 
     Route::get('/admin/show-all-steps','AllStepsController@index')->name('showAllSteps');
 
-        /*add section for the reading exam*/
+        /* section for the reading exam*/
+            Route::get('/admin/show-all-steps/add-section/{reading_id}/show-section/{section_id}/sub-section/create','ReadingSubSectionController@create')->name('reading.sub-section.create');
+            Route::post('/admin/show-all-steps/add-section/{reading_id}/show-section/{section_id}/sub-section/create','ReadingSubSectionController@store')->name('reading.sub-section.store');
 
 
         //showing a specific section
@@ -58,6 +60,12 @@
         Route::get('/admin/show-all-steps/add-section/{reading_id}/form','ReadingSectionController@sectionForm')->name('reading.section-form');
 
         Route::post('/admin/show-all-steps/add-section/{reading_id}/form','ReadingSectionController@create')->name('reading.section-form.create');
+            /*sub sections for readin exam */
+
+
+            /*end of sub-section for reading exam*/
+
+        /*end of section for reading exam */
 
         Route::get('check','ReadingSectionController@check')->name('check');
 

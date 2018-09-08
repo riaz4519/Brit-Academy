@@ -22,7 +22,10 @@
 
                     @else
 
-                        <a href="" class="btn btn-light  ">Add SECTION </a>
+                        @if( $sections->count() == 0)
+
+                            <a href="{{ route('reading.section-form',Request::segment(4)) }}" class="btn btn-light  ">Add SECTION </a>
+                            @endif
                     @endif
 
 
@@ -42,7 +45,13 @@
 
                     @else
 
-                        <a href="{{ route('reading.section-form',Request::segment(4)) }}" class="btn btn-light  ">Add SECTION </a>
+
+
+                        @if( $sections->count() == 1)
+
+                            <a href="{{ route('reading.section-form',Request::segment(4)) }}" class="btn btn-light  ">Add SECTION </a>
+                        @endif
+
                     @endif
 
 
@@ -62,8 +71,13 @@
                         <a href="{{ route('reading.show.section',['reading_id'=>$sections->get(2)->pivot->reading_id,'section_id'=>$sections->get(2)->pivot->rsection_id]) }}" class="btn btn-info">SHOW SECTION</a>
 
                     @else
+                        @if( $sections->count() == 2)
 
-                        <a href="{{ route('reading.section-form',Request::segment(4)) }}" class="btn btn-light  ">Add SECTION </a>
+                            <a href="{{ route('reading.section-form',Request::segment(4)) }}" class="btn btn-light  ">Add SECTION </a>
+                        @endif
+
+
+
                     @endif
 
 
@@ -74,7 +88,7 @@
         </div>
         @if (Session::has('msg'))
 
-            <div class="alert alert-danger alert-dismissible text-center">
+            <div class="alert alert-success alert-dismissible text-center">
                 <a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>
                 <strong>Success!</strong>
                 {!!Session::get('msg')!!}

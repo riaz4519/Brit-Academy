@@ -1,30 +1,26 @@
 @extends('layout.exam_controller')
+
 @section('css')
 
     <link rel="stylesheet" href="{{ asset('summernote/summernote.css') }}">
 
 @endsection
 
+
 @section('container')
 
     <div class="container ">
 
         <div class="row">
-
             <div class="col-1">
 
             </div>
 
             <div class="col-10 justify-content-center">
-                @if (Session::has('msg'))
 
-                    <div class="alert alert-success alert-dismissible">
-                        <a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>
-                        <strong>Success!</strong>
-                        {!!Session::get('msg')!!}
 
-                    </div>
-                @endif
+
+
 
 
                 @if ($errors->any())
@@ -36,33 +32,37 @@
                         </ul>
                     </div>
                 @endif
-                <form method="post" action="{{route('reading.updatePost.section',['reading_id'=>Request::segment(4),'section_id'=>$rsection->id])}}" class="mt-5  form-horizontal">
+                <form method="post" action="{{route('reading.sub-section.store',['reading_id'=>Request::segment(4),'rsection_id'=>Request::segment(6)])}}" class="mt-5  form-horizontal">
 
                     {{ csrf_field() }}
                     <div class="form-group">
-                        <label for="title"><strong>Title</strong></label>
+                        <label for="title">Type:</label>
 
-                        <input type="text" id="title" value="{{$rsection->title}}" class="form-control" name="title">
+                        <select class="form-control" name="type">
+                            @foreach($types as $type)
+                            <option value="{{$type->id}}">{{ $type->name }}</option>
+                                @endforeach
+                        </select>
 
                     </div>
 
                     <div class="form-group">
                         <label for="start">start</label>
 
-                        <input type="text" id="start" class="form-control" name="start" value="{{ $rsection->starts }}">
+                        <input type="text" id="start" class="form-control" name="start">
 
                     </div>
 
                     <div class="form-group">
                         <label for="end">end</label>
 
-                        <input type="text" id="end" class="form-control" name="end" value="{{ $rsection->end }}">
+                        <input type="text" id="end" class="form-control" name="end">
 
                     </div>
 
 
-                    <textarea id="summernote" name="passage" class="summernote"></textarea>
-                    <button type="submit"  class="btn btn-success mt-2">UPDATE</button>
+                    <textarea id="summernote" name="passage" class="summernote-ui"></textarea>
+                    <button type="submit"  class="btn btn-success mt-2">Submit</button>
                 </form>
             </div>
 
@@ -83,18 +83,9 @@
             $('#summernote').summernote({
                 placeholder: 'Insert Passeage for section',
                 tabsize: 2,
-                height: 330,
+                height: 200,
 
             });
-
-
-            //assign the variable passed from controller to a JavaScript variable.
-            var content = {!! json_encode($rsection->passage) !!}
-
-            //set the content to summernote using `code` attribute.
-            $('.summernote').summernote('code', content);
-
-
         });
 
 

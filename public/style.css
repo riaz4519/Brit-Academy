@@ -1967,3 +1967,8 @@ textarea:focus {
         color: #ffffff; }
 
 /*# sourceMappingURL=style.css.map */
+
+.over-flow-style-for-reading-section{
+  overflow-y: scroll;
+  height: 500px;
+}
