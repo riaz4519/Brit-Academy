@@ -7,6 +7,9 @@ use Illuminate\Database\Eloquent\Model;
 class Rquestion extends Model
 {
     //
+
+
+    protected $fillable = ['rsub_id','question','number'];
     public function rsubs(){
 
         return $this->belongsTo('App\Rsub');

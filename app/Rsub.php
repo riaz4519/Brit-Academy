@@ -23,4 +23,11 @@ class Rsub extends Model
         return $this->hasMany('App\Rquestion','rsub_id');
 
     }
+    public function rdrops(){
+
+        return $this->hasMany('App\Rdrop');
+    }
+
+
+
 }

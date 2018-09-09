@@ -13,6 +13,12 @@ class ReadingSubSectionController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
+
+    public function __construct()
+    {
+        $this->middleware('admin');
+    }
+
     public function index()
     {
         //
@@ -77,6 +83,7 @@ class ReadingSubSectionController extends Controller
     public function show($id)
     {
         //
+
     }
 
     /**
@@ -111,5 +118,10 @@ class ReadingSubSectionController extends Controller
     public function destroy($id)
     {
         //
+    }
+    public function addQuestion(){
+
+
+
     }
 }

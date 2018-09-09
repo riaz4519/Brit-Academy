@@ -14,6 +14,7 @@
 
 
     Auth::routes();
+Route::get('/admin/show-all-steps/add-section/{reading_id}/show-section/{section_id}/sub-section/{sub_section_id}/drop-down/create','ReadingSubsectionDropDownController@create')->name('reading.sub-section.dropdown.create');
 
 /*this is for the exam test controller*/
 /*----admin controller-----*/
@@ -44,8 +45,7 @@
     Route::get('/admin/show-all-steps','AllStepsController@index')->name('showAllSteps');
 
         /* section for the reading exam*/
-            Route::get('/admin/show-all-steps/add-section/{reading_id}/show-section/{section_id}/sub-section/create','ReadingSubSectionController@create')->name('reading.sub-section.create');
-            Route::post('/admin/show-all-steps/add-section/{reading_id}/show-section/{section_id}/sub-section/create','ReadingSubSectionController@store')->name('reading.sub-section.store');
+
 
 
         //showing a specific section
@@ -61,13 +61,32 @@
 
         Route::post('/admin/show-all-steps/add-section/{reading_id}/form','ReadingSectionController@create')->name('reading.section-form.create');
             /*sub sections for readin exam */
+                Route::get('/admin/show-all-steps/add-section/{reading_id}/show-section/{section_id}/sub-section/create','ReadingSubSectionController@create')->name('reading.sub-section.create');
+                Route::post('/admin/show-all-steps/add-section/{reading_id}/show-section/{section_id}/sub-section/create','ReadingSubSectionController@store')->name('reading.sub-section.store');
+
+                    /*start dropdown for sub-section*/
+
+                        Route::get('/admin/show-all-steps/add-section/{reading_id}/show-section/{section_id}/sub-section/{sub_section_id}/drop-down/create','ReadingSubsectionDropDownController@create')->name('reading.sub-section.dropdown.create');
+                        Route::post('/admin/show-all-steps/add-section/{reading_id}/show-section/{section_id}/sub-section/{sub_section_id}/drop-down/create','ReadingSubsectionDropDownController@store')->name('reading.sub-section.dropdown.store');
+
+
+
+                    /*end dropdown for sub-section*/
+
+
+                    /*start question for */
+
+                        Route::get('/admin/show-all-steps/add-section/{reading_id}/show-section/{section_id}/sub-section/{rsub_id}/add-question','ReadingSubsectionQuestionController@index')->name('reading.sub-section.question.index');
+                        Route::post('/admin/show-all-steps/add-section/{reading_id}/show-section/{section_id}/sub-section/{rsub_id}/add-question','ReadingSubsectionQuestionController@addDropDownTypeQuestion')->name('reading.sub-section.question.store');
+
+                    /*end question adding*/
 
 
             /*end of sub-section for reading exam*/
 
         /*end of section for reading exam */
 
-        Route::get('check','ReadingSectionController@check')->name('check');
+        Route::get('check','ReadingSubsectionDropDownController@create')->name('check');
 
 
 
