@@ -80,6 +80,8 @@ class ReadingSubsectionQuestionController extends Controller
         return view('exam_controller.reading.section.sub-section.add_checkbox')->withRsub($rsub);
 
     }
+
+
     public function checkboxStore($reading_id,$rsection_id,$rsub_id,Request $request){
 
         $this->validate($request,[
@@ -115,6 +117,12 @@ class ReadingSubsectionQuestionController extends Controller
 
 
 
+
+    }
+
+    public function radioIndex($reading_id,$rsection_id,$rsub_id){
+        $rsub = Rsub::find($rsub_id);
+        return view('exam_controller.reading.section.sub-section.add_radio')->withRsub($rsub);
 
     }
 

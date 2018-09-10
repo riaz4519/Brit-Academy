@@ -85,6 +85,12 @@ Route::get('/admin/show-all-steps/add-section/{reading_id}/show-section/{section
                             Route::post('/admin/show-all-steps/add-section/{reading_id}/show-section/{section_id}/sub-section/{rsub_id}/question/check-box','ReadingSubsectionQuestionController@checkboxStore')->name('reading.sub-section.question.checkbox.store');
 
                         /*checkbox end*/
+                            Route::get('/admin/show-all-steps/add-section/{reading_id}/show-section/{section_id}/sub-section/{rsub_id}/question/radio','ReadingSubsectionQuestionController@radioIndex')->name('reading.sub-section.question.radio');
+
+                        /*radio start*/
+
+
+                        /*radion end*/
 
                     /*end question adding*/
 

@@ -280,7 +280,7 @@
 
                                 <p class="text-center alert alert-info"><strong> {{ $rsub->rquestions->count() }} Question Added.Have to Add {{(($rsub->end-$rsub->start)+1)-$rsub->rquestions->count()}} Radio Question </strong></p>
 
-                                <a href="{{ route('reading.sub-section.question.checkbox',['reading_id'=>Request::segment(4),'rsection_id'=>Request::segment(6),'rsub_id'=>$rsub->id]) }}" class="btn btn-secondary">Add Question</a>
+                                <a href="{{ route('reading.sub-section.question.radio',['reading_id'=>Request::segment(4),'rsection_id'=>Request::segment(6),'rsub_id'=>$rsub->id]) }}" class="btn btn-secondary">Add Question</a>
 
 
 
