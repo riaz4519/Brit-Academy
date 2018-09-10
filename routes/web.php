@@ -76,8 +76,15 @@ Route::get('/admin/show-all-steps/add-section/{reading_id}/show-section/{section
 
                     /*start question for */
 
-                        Route::get('/admin/show-all-steps/add-section/{reading_id}/show-section/{section_id}/sub-section/{rsub_id}/add-question','ReadingSubsectionQuestionController@index')->name('reading.sub-section.question.index');
-                        Route::post('/admin/show-all-steps/add-section/{reading_id}/show-section/{section_id}/sub-section/{rsub_id}/add-question','ReadingSubsectionQuestionController@addDropDownTypeQuestion')->name('reading.sub-section.question.store');
+                        Route::get('/admin/show-all-steps/add-section/{reading_id}/show-section/{section_id}/sub-section/{rsub_id}/question/drop-down','ReadingSubsectionQuestionController@index')->name('reading.sub-section.question.index');
+                        Route::post('/admin/show-all-steps/add-section/{reading_id}/show-section/{section_id}/sub-section/{rsub_id}/question/drop-down','ReadingSubsectionQuestionController@addDropDownTypeQuestion')->name('reading.sub-section.question.store');
+
+                        /* checkbox start*/
+
+                            Route::get('/admin/show-all-steps/add-section/{reading_id}/show-section/{section_id}/sub-section/{rsub_id}/question/check-box','ReadingSubsectionQuestionController@checkboxIndex')->name('reading.sub-section.question.checkbox');
+                            Route::post('/admin/show-all-steps/add-section/{reading_id}/show-section/{section_id}/sub-section/{rsub_id}/question/check-box','ReadingSubsectionQuestionController@checkboxStore')->name('reading.sub-section.question.checkbox.store');
+
+                        /*checkbox end*/
 
                     /*end question adding*/
 

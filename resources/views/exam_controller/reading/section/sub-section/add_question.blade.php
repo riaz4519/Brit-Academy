@@ -28,7 +28,7 @@
                 <div class="card ">
                     <div class="card-header alert alert-info text-center">
 
-                        <strong>Add question ( {{ $rsub->start }}-{{ $rsub->end }} ) Now add Question {{ $rsub->rquestions->count() + 1 }}</strong>
+                        <strong>Add question ( {{ $rsub->start }}-{{ $rsub->end }} ) Now add Question {{ ($rsub->start+$rsub->rquestions->count())  }}</strong>
                     </div>
                         <div class="card-body">
 
@@ -37,11 +37,13 @@
                                 {{ csrf_field() }}
 
                                 <div class="form-group row">
-                                    <label for="staticEmail" class="col-sm-2 col-form-label"><strong>Email:</strong></label>
+                                    <label for="staticEmail" class="col-sm-2 col-form-label"><strong>Question:</strong></label>
                                     <div class="col-sm-10">
                                         <textarea type="text"  class="form-control" id="staticEmail" name="question" required></textarea>
                                     </div>
                                 </div>
+
+                                {{--for drop down question start--}}
 
                                 @if($rsub->type->name == 'Drop Down')
 
@@ -62,10 +64,15 @@
 
                                     </div>
 
+                                    {{--for drop down question end--}}
+
+
+
+
 
                                     @endif
 
-                                <input type="hidden" name="number" value=" {{ $rsub->rquestions->count() + 1 }} ">
+                                <input type="hidden" name="number" value=" {{ $rsub->start+$rsub->rquestions->count()  }} ">
 
                                 <input type="submit" class="form-control btn-sm offset-4 col-5">
 
