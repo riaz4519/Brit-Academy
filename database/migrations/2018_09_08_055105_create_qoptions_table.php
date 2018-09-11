@@ -16,7 +16,8 @@ class CreateQoptionsTable extends Migration
         Schema::create('qoptions', function (Blueprint $table) {
             $table->increments('id');
             $table->integer('rquestion_id');
-            $table->text('option');
+            $table->string('option');
+            $table->text('value');
             $table->timestamps();
         });
     }

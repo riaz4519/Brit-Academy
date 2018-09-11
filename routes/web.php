@@ -85,12 +85,22 @@ Route::get('/admin/show-all-steps/add-section/{reading_id}/show-section/{section
                             Route::post('/admin/show-all-steps/add-section/{reading_id}/show-section/{section_id}/sub-section/{rsub_id}/question/check-box','ReadingSubsectionQuestionController@checkboxStore')->name('reading.sub-section.question.checkbox.store');
 
                         /*checkbox end*/
-                            Route::get('/admin/show-all-steps/add-section/{reading_id}/show-section/{section_id}/sub-section/{rsub_id}/question/radio','ReadingSubsectionQuestionController@radioIndex')->name('reading.sub-section.question.radio');
+
 
                         /*radio start*/
+                            Route::get('/admin/show-all-steps/add-section/{reading_id}/show-section/{section_id}/sub-section/{rsub_id}/question/radio','ReadingSubsectionQuestionController@radioIndex')->name('reading.sub-section.question.radio');
+                            Route::post('/admin/show-all-steps/add-section/{reading_id}/show-section/{section_id}/sub-section/{rsub_id}/question/radio','ReadingSubsectionQuestionController@radioStore')->name('reading.sub-section.question.radio.store');
+
 
 
                         /*radion end*/
+
+                        /*passage gap start*/
+
+                            Route::get('/admin/show-all-steps/add-section/{reading_id}/show-section/{section_id}/sub-section/{rsub_id}/question/passage-gap','ReadingSubsectionQuestionController@passageGapIndex')->name('reading.sub-section.question.passageGap');
+                            Route::post('/admin/show-all-steps/add-section/{reading_id}/show-section/{section_id}/sub-section/{rsub_id}/question/passage-gap','ReadingSubsectionQuestionController@passageGapStore')->name('reading.sub-section.question.passageGap.store');
+
+                        /*passage gap end*/
 
                     /*end question adding*/
 

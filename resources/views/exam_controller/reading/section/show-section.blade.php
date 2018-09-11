@@ -6,6 +6,116 @@
 @section('css')
 
     <style>
+        .input-gap-passage{
+            font-family: "Nunito",sans-serif;
+
+            font-size: 18px;
+
+            font-weight: bold;
+
+            line-height: 1.5;
+            mso-line-spacing: 3;
+
+            color: #282828;
+        }
+
+        .green-number{
+
+            display: inline-block;
+
+            width: 30px;
+
+            height: 30px;
+
+            border-radius: 50%;
+
+            background-color: #327846;
+
+            font-size: 14px;
+
+            font-weight: 700;
+
+            font-family: "Montserrat",sans-serif;
+
+            text-align: center;
+
+            line-height: 30px;
+
+            color: #fff;
+
+        }
+
+
+        /*radio start*/
+
+        .radio {
+            display: block;
+            position: relative;
+            padding-left: 35px;
+            margin-bottom: 12px;
+            cursor: pointer;
+            font-size: 15px;
+            -webkit-user-select: none;
+            -moz-user-select: none;
+            -ms-user-select: none;
+            user-select: none;
+        }
+
+        /* Hide the browser's default radio button */
+        .radio input {
+            position: absolute;
+            opacity: 0;
+            cursor: pointer;
+        }
+
+        /* Create a custom radio button */
+        .checkmark-radio {
+            position: absolute;
+            top: 0;
+            left: 0;
+            height: 20px;
+            width: 20px;
+            background-color: whitesmoke;
+            border-radius: 50%;
+            border: 1px solid black;
+        }
+
+        /* On mouse-over, add a grey background color */
+        .radio:hover input ~ .checkmark-radio {
+            background-color: #ccc;
+        }
+
+        /* When the radio button is checked, add a blue background */
+        .radio input:checked ~ .checkmark-radio {
+            background-color: black;
+        }
+
+        /* Create the indicator (the dot/circle - hidden when not checked) */
+        .checkmark-radio:after {
+            content: "";
+            position: absolute;
+            display: none;
+        }
+
+        /* Show the indicator (dot/circle) when checked */
+        .radio input:checked ~ .checkmark-radio:after {
+            display: block;
+        }
+
+        /* Style the indicator (dot/circle) */
+        .radio .checkmark-radio:after {
+            top: 4px;
+            left: 4px;
+            width: 10px;
+            height: 10px;
+            border-radius: 50%;
+            background: white;
+        }
+
+        /*radio end*/
+
+
+
 
         /* The box-wrapper */
         .box-wrapper {
@@ -128,7 +238,17 @@
 
                 @foreach($rsection->rsubs as $rsub)
 
-                    @php($count = $count + $rsub->rquestions->count())
+                    @if($rsub->type->name == 'Checkbox')
+
+                            @php($count = $count + (($rsub->end-$rsub->start)+1) )
+
+                        @else
+
+                        @php($count = $count + $rsub->rquestions->count())
+
+                        @endif
+
+
 
                 @endforeach
 
@@ -152,7 +272,7 @@
                         <a href="{{ route('reading.sub-section.create',['reading_id'=>Request::segment(4),'sub_id'=>$rsection->id]) }}" class="btn btn-info">Add Sub section</a>
                     </div>
                     @endif
-                @if($rsection->rsubs()->count() >=1 && $rsection->rsubs->where('end','=',$rsection->end)->count() == 0)
+                @if($rsection->rsubs()->count() >=1  && ($needed_question-$count) !=0)
 
 
                     <div class=" text-center">
@@ -162,9 +282,10 @@
                         <p><strong>Add {{ 13-$count }} more questions in different sub sections </strong></p>
                         <a href="{{ route('reading.sub-section.create',['reading_id'=>Request::segment(4),'sub_id'=>$rsection->id]) }}" class="btn btn-info">Add Sub section</a>
                     </div>
+                    <hr>
 
                 @endif
-                <hr>
+
 
                 <div class="sub-section-question">
 
@@ -208,8 +329,8 @@
 
                                     @foreach($rsub->rquestions as $rquestion)
                                         <div class="form-group row">
-                                            <p class="" style="font-weight: bold">{{$rquestion->number}}.</p>
-                                            <select class="col-2 form-control offset-1 input-sm">
+                                            <p class="mr-2 green-number" style="font-weight: bold">{{$rquestion->number}}</p>
+                                            <select class="col-2 form-control  input-sm">
                                                 <option></option>
                                                 @foreach($rsub->rdrops as $rdrop)
                                                     <option>{{$rdrop->option}}</option>
@@ -276,21 +397,103 @@
 
                             @elseif($rsub->type->name == 'Radio')
 
-                            @if(!(($rsub->end-$rsub->start)+1)-$rsub->rquestions->count() == 0)
+                                @if(!(($rsub->end-$rsub->start)+1)-$rsub->rquestions->count() == 0)
 
-                                <p class="text-center alert alert-info"><strong> {{ $rsub->rquestions->count() }} Question Added.Have to Add {{(($rsub->end-$rsub->start)+1)-$rsub->rquestions->count()}} Radio Question </strong></p>
+                                    <p class="text-center alert alert-info"><strong> {{ $rsub->rquestions->count() }} Question Added.Have to Add {{(($rsub->end-$rsub->start)+1)-$rsub->rquestions->count()}} Radio Question </strong></p>
 
-                                <a href="{{ route('reading.sub-section.question.radio',['reading_id'=>Request::segment(4),'rsection_id'=>Request::segment(6),'rsub_id'=>$rsub->id]) }}" class="btn btn-secondary">Add Question</a>
+                                    <a href="{{ route('reading.sub-section.question.radio',['reading_id'=>Request::segment(4),'rsection_id'=>Request::segment(6),'rsub_id'=>$rsub->id]) }}" class="btn btn-secondary">Add Question</a>
 
 
 
-                            @endif
+                                @endif
+                        {{--showing radio--}}
+
+                                @if($rsub->rquestions->count() > 0)
+
+
+
+                                        <div class="mt-3">
+
+                                            @foreach($rsub->rquestions as $rquestion)
+                                                <div class="form-group ">
+                                                    <div class="row">
+                                                    <span class="green-number">{{$rquestion->number}}</span><strong class="col-9">{{$rquestion->question}}</strong>
+                                                    </div>
+
+
+                                                        @foreach($rquestion->qoptions as $roption)
+
+                                                                <div class="form-check">
+                                                                    <strong class="mr-4 text-center">{{$roption->option}}.</strong><input class="form-check-input" name="{{$rquestion->number}}[]" type="radio" value="" id="defaultCheck1">
+                                                                    <label class="form-check-label" for="defaultCheck1">
+                                                                        {{$roption->value}}
+                                                                    </label>
+                                                                </div>
+
+                                                        @endforeach
+
+
+
+
+                                                </div>
+                                            @endforeach
+                                        </div>
+
+
+
+
+
+
+                                    @endif
+
+                                {{--end showing radio--}}
+
+
 
 
 
 
 
                             {{--type of radio end--}}
+
+                            {{--start of passage gap--}}
+
+                                @elseif($rsub->type->name == 'Passage Gap')
+
+                                    @if(!(($rsub->end-$rsub->start)+1)-$rsub->rquestions->count() == 0)
+
+                                        <p class="text-center alert alert-info"><strong> {{ $rsub->rquestions->count() }} Question Added.Have to Add {{(($rsub->end-$rsub->start)+1)-$rsub->rquestions->count()}} Passage Gap Question </strong></p>
+
+                                        <a href="{{ route('reading.sub-section.question.passageGap',['reading_id'=>Request::segment(4),'rsection_id'=>Request::segment(6),'rsub_id'=>$rsub->id]) }}" class="btn btn-secondary">Add Question</a>
+
+                                    @endif
+                                    {{--showing passage gap--}}
+
+                                        @if($rsub->rquestions->count() > 0)
+
+                                            <div class="input-gap-passage">
+
+
+                                                @foreach($rsub->rquestions as $rquestion)
+
+                                                    {!! $rquestion->question !!}
+
+                                                    @endforeach
+
+
+                                            </div>
+
+
+                                            @endif
+
+
+                                    {{--end showing passage gap--}}
+
+
+
+
+
+                                    {{--end of passage gap--}}
 
 
                         @endif
@@ -315,4 +518,29 @@
 
 @endsection
 
+
+@section('script')
+
+
+    
+    <script>
+
+        
+        $(document).ready(function () {
+
+            $('.passage-gap').each(function () {
+
+                var value = $(this).html();
+                var input  = '<span class="green-number"> '+value+' </span> <input type="text" name="q'+value+'">';
+                $(this).html(input);
+
+                //this.html('foo');
+            });
+            
+        })
+        
+    </script>
+    
+    @endsection
+    
 
