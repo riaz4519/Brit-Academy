@@ -101,6 +101,12 @@ Route::get('/admin/show-all-steps/add-section/{reading_id}/show-section/{section
                             Route::post('/admin/show-all-steps/add-section/{reading_id}/show-section/{section_id}/sub-section/{rsub_id}/question/passage-gap','ReadingSubsectionQuestionController@passageGapStore')->name('reading.sub-section.question.passageGap.store');
 
                         /*passage gap end*/
+                        /*passage gap start*/
+
+                            Route::get('/admin/show-all-steps/add-section/{reading_id}/show-section/{section_id}/sub-section/{rsub_id}/question/passage-drop-down','ReadingSubsectionQuestionController@passageDropDownIndex')->name('reading.sub-section.question.passageDrop');
+                            Route::post('/admin/show-all-steps/add-section/{reading_id}/show-section/{section_id}/sub-section/{rsub_id}/question/passage-drop-down','ReadingSubsectionQuestionController@passageDropDownStore')->name('reading.sub-section.question.passageDrop.store');
+
+                        /*passage gap end*/
 
                     /*end question adding*/
 
@@ -159,6 +165,17 @@ Route::get('/admin/show-all-steps/add-section/{reading_id}/show-section/{section
 
 
 /*end admin exam controller  */
+
+
+
+/*give test for check*/
+
+Route::get('/tests/exam','ExamForTestPurpose@index')->name('test.exam');
+Route::get('/tests/exam/{reading_id}/give','ExamForTestPurpose@give')->name('test.give.index');
+Route::post('/submit','ExamForTestPurpose@post')->name('post');
+
+
+/*end */
 
 
 

@@ -68,6 +68,7 @@
 
                                     <li><a href="single-course.html">Academic Tests</a></li>
                                     <li><a href="single-course.html">General Tests</a></li>
+                                    <li><a href="{{route('test.exam')}}">Exam For Test</a></li>
 
 
                                 </ul>

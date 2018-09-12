@@ -6,6 +6,32 @@
 @section('css')
 
     <style>
+        .option-width{
+            padding: 0px 5px;
+
+            border-radius: 2px;
+
+            border: 1px solid #aaa;
+
+            margin: 0px 5px;
+
+            outline: none;
+            display: inline;
+            height: 10px;
+
+
+            max-width: 130px;
+
+        }
+        .input-drop-passage{
+            font-family: "Nunito",sans-serif;
+
+            font-size: 16px;
+
+            line-height: 1.5;
+
+            color: #282828;
+        }
         .input-gap-passage{
             font-family: "Nunito",sans-serif;
 
@@ -17,6 +43,7 @@
             mso-line-spacing: 3;
 
             color: #282828;
+            text-align: left;
         }
 
         .green-number{
@@ -432,9 +459,6 @@
 
                                                         @endforeach
 
-
-
-
                                                 </div>
                                             @endforeach
                                         </div>
@@ -456,6 +480,7 @@
 
                             {{--type of radio end--}}
 
+
                             {{--start of passage gap--}}
 
                                 @elseif($rsub->type->name == 'Passage Gap')
@@ -471,7 +496,7 @@
 
                                         @if($rsub->rquestions->count() > 0)
 
-                                            <div class="input-gap-passage">
+                                            <div class="input-drop-passage">
 
 
                                                 @foreach($rsub->rquestions as $rquestion)
@@ -485,16 +510,62 @@
 
 
                                             @endif
+                                        {{--end showing passage gap--}}
+
+                                    {{--start of passage drop down--}}
+
+                                    {{--end of passage drop down--}}
+
+                                @elseif($rsub->type->name == 'Passage Dropdown')
+
+                                    <div class="text-center">
+
+                                        {{--adding passage gap dropdown option--}}
+
+                                        @if($rsub->rdrops->count() == 0)
+
+                                            <p class="alert alert-danger "><strong>Add options first for the Section then Add the question</strong></p>
+
+                                            <a href="{{route('reading.sub-section.dropdown.create',['reading_id'=>Request::segment(4),'rsection_id'=>Request::segment(6),'rsub_id'=>$rsub->id])}}" class="btn btn-info text-center mb-2">Add Passage DropDown Options</a>
+
+                                            {{--end of passage gap drop down option--}}
+                                        @else
+
+                                            @if($rsub->rquestions()->count() < ($rsub->end-$rsub->start)+1)
+                                                <div class="text-center">
+
+                                                    <p class="text-center alert alert-info"><strong>Sub section added.Now Add {{ ($rsub->end)-($rsub->start+$rsub->rquestions()->count()) }}-{{ $rsub->type->name }} Questions </strong></p>
+
+                                                    <a href="{{ route('reading.sub-section.question.passageDrop',['reading_id'=>Request::segment(4),'rsection_id'=>Request::segment(6),'rsub_id'=>$rsub->id]) }}" class="btn btn-secondary">Add Question</a>
+
+                                                </div>
+
+                                            @endif
+                                                {{--showing passage gap--}}
+
+                                                @if($rsub->rquestions->count() > 0)
+
+                                                    <div class="input-gap-passage">
 
 
-                                    {{--end showing passage gap--}}
+                                                        @foreach($rsub->rquestions as $rquestion)
+
+                                                            {!! " ".$rquestion->question." " !!}
+
+                                                        @endforeach
 
 
+                                                    </div>
 
 
+                                                @endif
+                                                {{--end showing passage gap--}}
+
+                                        @endif
+
+                                    </div>
 
                                     {{--end of passage gap--}}
-
 
                         @endif
 
@@ -520,13 +591,62 @@
 
 
 @section('script')
+    @if($result = $rsection->rsubs->where('type_id','=','5')->first())
 
+        {{--{{ $result->rdrops }}--}}
+
+        @foreach($rsection->rsubs as $rsub)
+
+            @if($rsub->type_id == '5')
+
+        <script>
+
+            $(document).ready(function () {
+
+
+                $('.passage-drop').each(function () {
+
+                    var value = $(this).html();
+                    var input;
+                    input += '<span class="green-number">'
+
+                    input += value;
+
+                    input += '</span>';
+                    input += '<select class="option-width form-control">';
+                    @foreach($rsub->rdrops as $rdrop)
+                    input += '<option  value="+{{$rdrop->option}}"+>';
+                    input += '{{$rdrop->option}}';
+                    input += '</option>';
+
+                    @endforeach
+                    input += '</select>';
+
+
+
+                    $(this).html(input);
+
+                    //this.html('foo');
+                });
+
+            })
+
+        </script>
+
+        @break
+        @endif
+
+        @endforeach
+
+    @endif
 
     
     <script>
 
-        
-        $(document).ready(function () {
+
+
+             $(document).ready(function () {
+
 
             $('.passage-gap').each(function () {
 
