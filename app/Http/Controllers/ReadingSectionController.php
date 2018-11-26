@@ -30,7 +30,7 @@ class ReadingSectionController extends Controller
 
 
 
-       $reading_section_count = Reading::find(1)->rsections->count();
+       $reading_section_count = Reading::find($reading_id)->rsections->count();
 
        if ($reading_section_count >= 3){
 

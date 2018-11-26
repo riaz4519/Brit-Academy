@@ -432,9 +432,9 @@ textarea:focus {
   position: relative;
   z-index: 1;
   width: 100%;
-  height: 80px; }
+  height: 50px; }
   .clever-main-menu .classy-navbar {
-    height: 80px; }
+    height: 50px; }
   .clever-main-menu .classynav ul li a {
     color: rgba(0, 0, 0, 0.45);
     font-weight: 600; }
@@ -1970,5 +1970,50 @@ textarea:focus {
 
 .over-flow-style-for-reading-section{
   overflow-y: scroll;
-  height: 500px;
+  height: 550px;
 }
+
+/*listening section */
+
+.green-number{
+  display: inline-block;
+
+  width: 30px;
+
+  height: 30px;
+
+  border-radius: 50%;
+
+  background-color: #327846;
+
+  font-size: 14px;
+
+  font-weight: 700;
+
+  font-family: "Montserrat",sans-serif;
+
+  text-align: center;
+
+  line-height: 30px;
+
+  color: #fff;
+}
+.input-fild-border{
+  border: 2px solid grey;
+
+  border-style: none none solid none
+
+}
+.input-fild-border:hover{
+
+  border: 2px solid lightskyblue;
+
+  border-style: none none solid none
+
+}
+
+
+
+
+/**/
+

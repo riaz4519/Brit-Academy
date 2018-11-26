@@ -1,0 +1,809 @@
+@extends('layout.exam_controller')
+
+@section('title','Listening section')
+
+
+
+@section('container')
+
+    <div class="container">
+
+        <div class="row">
+
+            <div class="col-8">
+
+
+                {{-- audio goes here --}}
+
+                <div class="row">
+
+                    <div class="col-12">
+
+                        <audio controls id="audio_sound" class="" style="width: 100%">
+
+                            <source src="{{url($listening->audio)}}"  type="audio/ogg" >
+
+
+                        </audio>
+
+
+                    </div>
+
+
+
+
+                </div>
+
+                {{--audio end here--}}
+
+
+                {{--section goes here--}}
+
+                {{--section info--}}
+
+                <div class="row justify-content-center ">
+
+
+
+                        <div class="col-12 mt-3">
+
+                            <div class="card border-info">
+
+                                <div class="card-header text-center">
+
+                                    <h5>Listening Info Box</h5>
+
+                                </div>
+
+                                <div class="card-body ">
+
+                                    <div class="row ">
+
+                                        <div class="col border-success">
+                                            <span><b>Number of section</b></span>
+
+                                            @if($listening->lsections->count() == 0)
+
+                                                <p >No section Added</p>
+                                                <a href="{{ route('listening.section.create',$listening->id) }}" class="btn btn-danger">Add Section</a>
+
+                                                @elseif($listening->lsections->count() >=1 && $listening->lsections->count() <=3)
+
+                                                    <p class="border-success">{{ $listening->lsections->count() }} - Section Added</p>
+                                                    <a href="{{ route('listening.section.create',$listening->id) }}" class="btn btn-danger">Add Section</a>
+
+
+                                            @endif
+
+
+
+
+                                        </div>
+                                        <div class="col border-success">
+
+                                            <span><b>sub section</b></span>
+
+
+                                        </div>
+                                        <div class="col border-success">
+
+                                            <span><b>Question</b></span>
+
+
+                                        </div>
+
+                                    </div>
+
+
+
+                                </div>
+
+                            </div>
+
+                        </div>
+
+
+
+
+
+                </div>
+
+                {{--end section info--}}
+
+
+                {{--start show section--}}
+
+                @foreach($listening->lsections as $lsection)
+
+                    <div class="section-subsection-wrapper  border border-dark p-1 mt-2">
+
+
+                        <div class="row  mt-2">
+                            {{--section header with section number and section range--}}
+                            <span class="font-bold col-10">Section {{ $lsection->section_number }} : QUESTION {{ $lsection->start .'-'. $lsection->end }} </span>
+
+                            {{--edit section link--}}
+                            <span class="col-2 "><a href="" class="btn btn-sm btn-link btn-outline-dark">Edit Section</a></span>
+
+                        </div>
+
+                        {{--sub section adding if the question adding is not enough--}}
+
+
+                        {{--getting the require values--}}
+                            @php
+
+                            $number_of_question_needed_for_section = ($lsection->end);
+
+                            $number_of_question_added_to_section   = $lsection->lsubsections->max('end');
+
+                            $decision_for_sub_section = $number_of_question_needed_for_section-$number_of_question_added_to_section;
+
+                            @endphp
+
+
+                        {{--end getting the require values--}}
+
+
+                        @if($decision_for_sub_section >0)
+
+                            <div class="row mt-2 ">
+
+                                <div class="col-6">
+                                    <p class="font-bold" style="color: red">{{$decision_for_sub_section}} question Left .Need to add subsection</p>
+                                </div>
+
+
+                                <div class="col-3 ">
+
+                                    <a href="{{ route('listening.section.sub.create',['listening_id'=>Request::Segment(3),'section_id'=>$lsection->id]) }}" class="btn btn-outline-success btn-sm"><i class="fa fa-plus-square"></i> Add Subsection</a>
+                                </div>
+                            </div>
+
+                            @endif
+
+
+                        {{--end subsection adding--}}
+
+                        {{--sub section--}}
+
+
+
+
+
+                        {{--when there is no sub-section--}}
+{{--                            @if($lsection->lsubsections->count() == 0)
+
+                            <div class="row mt-2">
+
+                                <div class="col-3">
+                                    <p class="font-bold" style="color: red">No sub section Added</p>
+                                </div>
+
+
+                                <div class="col-3 ">
+
+                                    <a href="{{ route('listening.section.sub.create',['listening_id'=>Request::Segment(3),'section_id'=>$lsection->id]) }}" class="btn btn-outline-info">Add Subsection</a>
+                                </div>
+                            </div>--}}
+
+                        {{--end when there is no sub-section--}}
+
+                                {{--start iterate sub section--}}
+
+                                @if($lsection->lsubsections->count() > 0)
+
+
+                                @foreach($lsection->lsubsections as $lsubsection)
+
+                                    <div class="row mt-2">
+
+                                        <div class="col-3">
+                                            <p class="font-bold " style="font-size: 1.3em">Questions {{ $lsubsection->start }} - {{ $lsubsection->end }}</p>
+
+                                        </div>
+
+                                        <div class="col-3">
+                                            <span class="btn btn-outline-info btn-sm"><i class="fa fa-edit "></i>Edit</span>
+
+                                        </div>
+
+                                        <div class="col-3">
+                                            <span class="btn btn-outline-info btn-sm button-start-from" value="{{ $lsubsection->time_start }}"><i class="fa fa-headphones"></i>Listen from here</span>
+
+                                        </div>
+
+                                        <div class="col-3">
+                                            <span class="btn btn-outline-info btn-sm"><i class="fa fa-clipboard"></i>Show Notepad</span>
+                                        </div>
+
+
+                                    </div>
+
+                                    {{--decleartion of varible --}}
+
+                                        @php
+                                            $number_of_question_added = $lsubsection->questions->where('example','=',false)->count();
+                                            $number_of_question_needed = ($lsubsection->end - $lsubsection->start)+1
+
+                                        @endphp
+
+                                    {{--end of decleartion of variable--}}
+
+
+
+
+
+
+                                <div class="row ">
+
+
+                                        <div class="col-12">
+                                            <hr >
+
+                                            {!! $lsubsection->body !!}
+
+
+
+                                        </div>
+
+                                    </div>
+
+                                {{--is the number of question added is zero--}}
+
+                                @if($number_of_question_added == 0)
+
+
+                                    <div class="row">
+
+                                        <div class="col-6 ">
+
+                                            <p class="font-bold border border-danger text-center" style="color: red">No Question Added.Have to Add {{ ( $lsubsection->end - $lsubsection->start +1)-$lsubsection->questions->count()." Question"  }} </p>
+
+                                        </div>
+                                        <div class="col-3">
+
+                                            @if($lsubsection->ltypes->name == 'fill Blank - single line ')
+
+                                                <a class="btn btn-outline-info text-center btn-sm" href="{{ route('listening.sub.single_line_q',[Request::Segment(3),$lsection->id,$lsubsection->id]) }}">Add New Question</a>
+
+                                                @elseif($lsubsection->ltypes->name == 'Table - Two Row - Answer Left')
+
+                                                <a class="btn btn-outline-info text-center btn-sm" href="{{ route('listening.sub.table_row_two_left_ans_create',[Request::Segment(3),$lsection->id,$lsubsection->id]) }}">Add New Question</a>
+
+                                                @elseif($lsubsection->ltypes->name == 'Radio type')
+                                                <a class="btn btn-outline-info text-center btn-sm" href="{{ route('listening.sub.radio_type_self_option_index',[Request::Segment(3),$lsection->id,$lsubsection->id]) }}">Add New Question</a>
+
+
+                                            @endif
+
+                                        </div>
+
+                                    </div>
+                                    {{-- zero end--}}
+
+
+                                    {{-- if the number of question is greater then zero but less the number of question needed--}}
+
+                                @elseif($number_of_question_added > 0 && $number_of_question_added < $number_of_question_needed)
+
+                                    {{--question showing for fill the blank -single line--}}
+
+                                    @if($lsubsection->ltypes->name == 'fill Blank - single line ')
+                                        {{--status--}}
+                                        <div class="row justify-content-center">
+
+                                            <div class="col-6 ">
+
+                                                <p class="font-bold border border-info text-center" style="color: green">{{ $number_of_question_added }} of {{ $number_of_question_added }} have been added.Now You can Only Add Example Question </p>
+
+
+                                            </div>
+                                            <div class="col-3">
+                                                <a class="btn btn-outline-info text-center btn-sm" href="{{ route('listening.sub.single_line_q',[Request::Segment(3),$lsection->id,$lsubsection->id]) }}">Add New Question</a>
+
+                                            </div>
+
+
+                                        </div>
+                                        {{--status--}}
+
+                                        {{--question showing for fill the blank -single line--}}
+
+                                        <div class="row">
+
+                                            <div class="col-12 ">
+                                                <table class="table table-bordered table-hover">
+
+                                                    <thead >
+
+                                                    <tr>
+
+                                                        <th class="text-center">Question</th>
+                                                        <th class="text-center">Answer</th>
+
+                                                    </tr>
+
+
+                                                    </thead>
+                                                    <tbody>
+
+                                                    {{--shwoing question--}}
+
+                                                    @foreach($lsubsection->questions as $question)
+                                                        <tr>
+                                                            <td>{{ $question->question }}</td>
+                                                            <td>
+                                                                {{--example --}}
+                                                                @if($question->example)
+                                                                    {{ $question->answers->answer }}
+                                                                    <span class="font-bold">(Example)</span>
+                                                                    {{--end example--}}
+
+                                                                    {{--answer field with number--}}
+                                                                @else
+                                                                    <span class="green-number" >{{ $question->qnumber }}</span>
+
+                                                                    <span><input type="text"  class="input-fild-border" name="question[{{$question->id}}]"></span>
+
+                                                                    {{--end answer field with number--}}
+
+                                                                @endif
+                                                            </td>
+                                                        </tr>
+                                                    @endforeach
+
+                                                    </tbody>
+
+                                                    {{--end of showing question--}}
+
+                                                </table>
+                                            </div>
+
+
+
+                                        </div>
+
+                                        {{--end of question for fill the blank single line--}}
+
+
+                                    {{--Table - Two Row - Answer Left--}}
+
+                                @elseif($lsubsection->ltypes->name == 'Table - Two Row - Answer Left')
+
+
+                                        <div class="row justify-content-center">
+
+                                            <div class="col-6 ">
+
+                                                <p class="font-bold border border-danger text-center" style="color: red">{{ $lsubsection->questions->where('example','=',false)->count() }} Question Added.Have to Add {{ ( $lsubsection->end - $lsubsection->start +1)-$lsubsection->questions->where('example','=',false)->count()." Question"  }} </p>
+
+                                            </div>
+                                            <div class="col-3">
+
+                                                <a class="btn btn-outline-info text-center btn-sm" href="{{ route('listening.sub.table_row_two_left_ans_create',[Request::Segment(3),$lsection->id,$lsubsection->id]) }}">Add New Question</a>
+
+
+                                            </div>
+
+                                        </div>
+
+
+                                        <div class="row">
+
+                                            <div class="col-12 ">
+                                                <table class="table table-bordered table-hover">
+
+
+                                                    <tbody>
+
+                                                    {{--shwoing question--}}
+
+                                                    @foreach($lsubsection->questions as $question)
+                                                        <tr>
+
+                                                            <td>
+                                                                {{--example --}}
+                                                                @if($question->example)
+                                                                    {{ $question->answers->answer }}
+                                                                    <span class="font-bold">(Example)</span>
+                                                                    {{--end example--}}
+
+                                                                    {{--answer field with number--}}
+                                                                @else
+                                                                    <span class="green-number" >{{ $question->qnumber }}</span>
+
+                                                                    <span><input type="text"  class="input-fild-border" name="question[{{$question->id}}]"></span>
+
+                                                                    {{--end answer field with number--}}
+
+                                                                @endif
+                                                            </td>
+                                                            <td class="font-bold pl-4 pr-5 text-center"> {{ $question->question }} </td>
+                                                        </tr>
+                                                    @endforeach
+
+                                                    </tbody>
+
+                                                    {{--end of showing question--}}
+
+                                                </table>
+                                            </div>
+
+
+
+                                        </div>
+
+
+
+                                    {{--end Table - Two Row - Answer Left--}}
+
+                                        {{--start radio type self --}}
+
+                                    @elseif($lsubsection->ltypes->name = 'Radio type')
+
+                                        {{--status--}}
+
+                                        <div class="row justify-content-center">
+
+                                            <div class="col-6 ">
+
+                                                <p class="font-bold border border-danger text-center" style="color: red">{{ $lsubsection->questions->where('example','=',false)->count() }} Question Added.Have to Add {{ ( $lsubsection->end - $lsubsection->start +1)-$lsubsection->questions->where('example','=',false)->count()." Question"  }} </p>
+
+                                            </div>
+                                            <div class="col-3">
+
+                                                <a class="btn btn-outline-info text-center btn-sm" href="{{ route('listening.sub.radio_type_self_option_index',[Request::Segment(3),$lsection->id,$lsubsection->id]) }}">Add New Question</a>
+
+
+                                            </div>
+
+                                        </div>
+
+                                        {{--status--}}
+
+
+
+                                        @foreach($lsubsection->questions as $question)
+                                            <div class="form-group pl-4">
+                                                <div class="row">
+                                                    <span class="green-number">{{$question->qnumber}}</span><strong class="col-9">{{$question->question}}</strong>
+                                                </div>
+
+
+                                                @foreach($question->lqoptions as $lqoption)
+
+                                                    <div class="form-check">
+                                                        <strong class="mr-4 text-center">{{$lqoption->option}}.</strong><input class="form-check-input" name="{{$question->qnumber}}[]" type="radio" value="" id="defaultCheck1">
+                                                        <label class="form-check-label" for="defaultCheck1">
+                                                            {{$lqoption->value}}
+                                                        </label>
+                                                    </div>
+
+                                                @endforeach
+
+                                            </div>
+                                        @endforeach
+
+
+
+                                        {{--end radio type self --}}
+
+                                @endif
+
+                                    {{--end of less then the question needed--}}
+
+
+
+                                {{-- all the question added showin list--}}
+
+                                @elseif( $number_of_question_added == $number_of_question_needed)
+
+                                    {{-- start this is inner if for section type --}}
+
+                                    {{--question showing for fill the blank -single line--}}
+
+                                    @if($lsubsection->ltypes->name == 'fill Blank - single line ')
+
+                                        {{--status--}}
+                                    <div class="row justify-content-center">
+
+                                        <div class="col-6 ">
+
+                                            <p class="font-bold border border-info text-center" style="color: green">{{ $number_of_question_added }} of {{ $number_of_question_added }} have been added.Now You can Only Add Example Question </p>
+
+
+                                        </div>
+
+                                        <div class="col-3">
+                                            <a class="btn btn-outline-info text-center btn-sm" href="{{ route('listening.sub.single_line_q',[Request::Segment(3),$lsection->id,$lsubsection->id]) }}">Add New Question</a>
+
+                                        </div>
+
+
+                                    </div>
+                                        {{--status--}}
+
+                                    {{--question showing for fill the blank -single line--}}
+
+                                    <div class="row">
+
+                                        <div class="col-12 ">
+                                            <table class="table table-bordered table-hover">
+
+                                                <thead >
+
+                                                <tr>
+
+                                                    <th class="text-center">Question</th>
+                                                    <th class="text-center">Answer</th>
+
+                                                </tr>
+
+
+                                                </thead>
+                                                <tbody>
+
+                                                {{--shwoing question--}}
+
+                                                @foreach($lsubsection->questions as $question)
+                                                    <tr>
+                                                        <td>{{ $question->question }}</td>
+                                                        <td>
+                                                            {{--example --}}
+                                                            @if($question->example)
+                                                                {{ $question->answers->answer }}
+                                                                <span class="font-bold">(Example)</span>
+                                                                {{--end example--}}
+
+                                                                {{--answer field with number--}}
+                                                            @else
+                                                                <span class="green-number" >{{ $question->qnumber }}</span>
+
+                                                                <span><input type="text"  class="input-fild-border" name="question[{{$question->id}}]"></span>
+
+                                                                {{--end answer field with number--}}
+
+                                                            @endif
+                                                        </td>
+                                                    </tr>
+                                                @endforeach
+
+                                                </tbody>
+
+                                                {{--end of showing question--}}
+
+                                            </table>
+                                        </div>
+
+
+
+                                    </div>
+
+                                    {{--end of question for fill the blank single line--}}
+
+                                        {{--Table - Two Row - Answer Left--}}
+
+                                    @elseif($lsubsection->ltypes->name == 'Table - Two Row - Answer Left')
+
+
+                                        {{--status--}}
+                                        <div class="row justify-content-center">
+
+                                            <div class="col-6 ">
+
+                                                <p class="font-bold border border-info text-center" style="color: green">{{ $number_of_question_added }} of {{ $number_of_question_added }} have been added.Now You can Only Add Example Question </p>
+
+                                            </div>
+
+                                            <div class="col-3">
+
+                                                <a class="btn btn-outline-info text-center btn-sm" href="{{ route('listening.sub.table_row_two_left_ans_create',[Request::Segment(3),$lsection->id,$lsubsection->id]) }}">Add New Question</a>
+
+
+                                            </div>
+
+
+                                        </div>
+                                        {{--end of status--}}
+
+
+                                        {{--table--}}
+
+                                        <div class="row">
+
+                                            <div class="col-12 ">
+                                                <table class="table table-bordered table-hover">
+
+
+                                                    <tbody>
+
+                                                    {{--shwoing question--}}
+
+                                                    @foreach($lsubsection->questions as $question)
+                                                        <tr>
+
+                                                            <td>
+                                                                {{--example --}}
+                                                                @if($question->example)
+                                                                    {{ $question->answers->answer }}
+                                                                    <span class="font-bold">(Example)</span>
+                                                                    {{--end example--}}
+
+                                                                    {{--answer field with number--}}
+                                                                @else
+                                                                    <span class="green-number" >{{ $question->qnumber }}</span>
+
+                                                                    <span><input type="text"  class="input-fild-border" name="question[{{$question->id}}]"></span>
+
+                                                                    {{--end answer field with number--}}
+
+                                                                @endif
+                                                            </td>
+                                                            <td class="font-bold pl-4 pr-5 text-center"> {{ $question->question }} </td>
+                                                        </tr>
+                                                    @endforeach
+
+                                                    </tbody>
+
+                                                    {{--end of showing question--}}
+
+                                                </table>
+                                            </div>
+
+
+
+                                        </div>
+
+                                        {{--end table--}}
+
+
+                                        {{--end Table - Two Row - Answer Left--}}
+
+                                    @elseif($lsubsection->ltypes->name = 'Radio type')
+
+                                        {{--status--}}
+
+                                        <div class="row justify-content-center">
+
+                                            <div class="col-6 ">
+
+                                                <p class="font-bold border border-info text-center" style="color: green">{{ $number_of_question_added }} of {{ $number_of_question_added }} have been added. </p>
+
+
+                                            </div>
+                                  {{--          <div class="col-3">
+
+                                                <a class="btn btn-outline-info text-center btn-sm" href="{{ route('listening.sub.radio_type_self_option_index',[Request::Segment(3),$lsection->id,$lsubsection->id]) }}">Add New Question</a>
+
+
+                                            </div>--}}
+
+                                        </div>
+
+                                        {{--status--}}
+
+
+
+                                        @foreach($lsubsection->questions as $question)
+                                            <div class="form-group pl-4">
+                                                <div class="row">
+                                                    <span class="green-number">{{$question->qnumber}}</span><strong class="col-9">{{$question->question}}</strong>
+                                                </div>
+
+
+                                                @foreach($question->lqoptions as $lqoption)
+
+                                                    <div class="form-check">
+                                                        <strong class="mr-4 text-center">{{$lqoption->option}}.</strong><input class="form-check-input" name="{{$question->qnumber}}[]" type="radio" value="" id="defaultCheck1">
+                                                        <label class="form-check-label" for="defaultCheck1">
+                                                            {{$lqoption->value}}
+                                                        </label>
+                                                    </div>
+
+                                                @endforeach
+
+                                            </div>
+                                        @endforeach
+
+
+                                    @endif
+                                    {{-- end this is inner if for section type --}}
+
+                                @endif
+
+                                {{--end all the question added showing list--}}
+
+
+
+
+
+
+
+                                @endforeach
+
+                                {{--end iterate sub section --}}
+
+
+
+                                @endif
+
+                        {{--end sub section--}}
+
+                    </div>
+
+
+
+
+
+
+                    @endforeach
+
+                {{--end show section--}}
+
+
+                {{--end section here--}}
+
+
+            </div>
+            <div class="col-4">
+
+            </div>
+
+        </div>
+
+
+    </div>
+
+    @endsection
+
+@section('script')
+
+    <script>
+
+        $(document).ready(function () {
+
+            $('.button-start-from').on('click',function () {
+
+
+                var start_from = $(this).attr('value');
+
+                audioPlay(start_from);
+
+            });
+
+
+            /*recursive*/
+
+            function audioPlay(start_from) {
+
+
+                start_from = start_from *60;
+
+               var audio =  $('#audio_sound');
+
+                audio.prop('currentTime',start_from);
+
+
+
+                if(audio.prop('currentTime') != start_from){
+
+                    audioPlay(start_from);
+
+
+                }
+                audio.trigger('play');
+
+
+
+
+            }
+
+
+        });
+
+
+    </script>
+
+
+    @endsection

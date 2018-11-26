@@ -34,6 +34,7 @@ class ExamForTestPurpose extends Controller
     public  function post(Request $request){
 
         $i = 0;
+        $null = 0;
 
       foreach ($request->question as $key=>$value){
 
@@ -47,6 +48,7 @@ class ExamForTestPurpose extends Controller
          $i++;
 
      }
+
 
 
 

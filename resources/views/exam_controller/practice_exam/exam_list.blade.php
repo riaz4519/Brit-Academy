@@ -97,7 +97,7 @@
                                         <span><i class="fa fa-circle" aria-hidden="true"></i></span>
                                         <a href="#">{{ $single_exam->course->name }}</a>
                                     </div>
-                                    <p>{{$single_exam->description}}</p>
+                                    <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Fusce enim nulla, mollis eu metus in, sagittis</p>
                                 </div>
                                 <!-- Seat Rating Fee -->
                                 <div class="seat-rating-fee d-flex justify-content-between">
@@ -110,7 +110,10 @@
                                         </div>
                                     </div>
                                     <div class="course-fee h-100">
-                                        <a href="#" class="free">Free</a>
+                                        <a href="#" class="edit">Edit</a>
+                                    </div>
+                                    <div class="course-fee h-100">
+                                        <a href="{{ route('ExamStepsIndex',$single_exam->id) }}" class="free">show</a>
                                     </div>
                                 </div>
                             </div>
@@ -138,7 +141,7 @@
                                     <div class="meta d-flex align-items-center">
                                         <a href="#">Sarah Parker</a>
                                         <span><i class="fa fa-circle" aria-hidden="true"></i></span>
-                                        <a href="#">Art &amp; Design</a>
+                                        <a href="#">{{ $single_exam->course->name }}</a>
                                     </div>
                                     <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Fusce enim nulla, mollis eu metus in, sagittis</p>
                                 </div>
@@ -153,7 +156,10 @@
                                         </div>
                                     </div>
                                     <div class="course-fee h-100">
-                                        <a href="#" class="free">Free</a>
+                                        <a href="#" class="edit">Edit</a>
+                                    </div>
+                                    <div class="course-fee h-100">
+                                        <a href="{{ route('ExamStepsIndex',$single_exam->id) }}" class="free">show</a>
                                     </div>
                                 </div>
                             </div>

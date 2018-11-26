@@ -51,7 +51,7 @@ Route::get('/admin/show-all-steps/add-section/{reading_id}/show-section/{section
         //showing a specific section
         Route::post('/admin/show-all-steps/add-section/{reading_id}/update-section/{section_id}','ReadingSectionController@update')->name('reading.updatePost.section');
 
-        Route::get('/admin/show-all-steps/add-section/{reading_id}/update-section/{section_id}','ReadingSectionController@updateSection')->name('reading.update.section');
+        Route::get('/ad min/show-all-steps/add-section/{reading_id}/update-section/{section_id}','ReadingSectionController@updateSection')->name('reading.update.section');
 
         Route::get('/admin/show-all-steps/add-section/{reading_id}/show-section/{section_id}','ReadingSectionController@showSection')->name('reading.show.section');
 
@@ -115,7 +115,94 @@ Route::get('/admin/show-all-steps/add-section/{reading_id}/show-section/{section
 
         /*end of section for reading exam */
 
-        Route::get('check','ReadingSubsectionDropDownController@create')->name('check');
+        /*start section for writing exam*/
+
+            //create
+            Route::get('admin/create-writing','AdminWritingTestController@create')->name('create.writing.index');
+            Route::post('admin/create-writing','AdminWritingTestController@store')->name('create.writing.store');
+
+                /*start writing section*/
+
+                Route::get('admin/writing/{writing_id}/section','WritingSectionController@index')->name('writing.section.index');
+
+                Route::get('admin/writing/{writing_id}/section/create','WritingSectionController@create')->name('writing.section.create');
+
+                Route::post('admin/writing/{writing_id}/section/create','WritingSectionController@store')->name('writing.section.store');
+
+                /*edit writing*/
+
+                Route::get('admin/writing/{writing_id}/section/{section_id}/edit','WritingSectionController@edit')->name('writing.section.edit');
+
+                /*edit store*/
+                Route::post('admin/writing/{writing_id}/section/{section_id}/edit','WritingSectionController@update')->name('writing.section.edit.store');
+
+                /*delete wsection*/
+                Route::get('admin/writing/{writing_id}/section/{section_id}/delete','WritingSectionController@destroy')->name('writing.section.edit.delete');
+
+
+
+
+
+/*end writing section*/
+
+
+
+
+
+
+        /*end section for writing exam*/
+
+        Route::get('check','checkController@check')->name('check');
+
+/*starting listening test exam */
+
+    /*create listening */
+     Route::get('listening/create','ListeningController@create')->name('listening.create');
+     Route::post('listening/create','ListeningController@store')->name('listening.store');
+
+        /*start add sec*/
+
+        Route::get('admin/listening/{listening_id}/section','ListeningSectionController@index')->name('listening.section.index');
+
+        Route::get('admin/listening/{listening_id}/section/create','ListeningSectionController@create')->name('listening.section.create');
+
+        Route::post('admin/listening/{listening_id}/section/create','ListeningSectionController@store')->name('listening.section.store');
+
+            /*listening sub section */
+
+            Route::get('admin/listening/{listening_id}/section/{section_id}/create','LsubSectionController@create')->name('listening.section.sub.create');
+            Route::post('admin/listening/{listening_id}/section/{section_id}/create','LsubSectionController@store')->name('listening.section.sub.store');
+
+            /*adding fill in the gaps single line*/
+
+                Route::get('admin/listening/{listening_id}/section/{section_id}/sub-section/{sub_section_id}/question_single_line_gap','LquestionController@single_line_index')->name('listening.sub.single_line_q');
+                Route::post('admin/listening/{listening_id}/section/{section_id}/sub-section/{sub_section_id}/question_single_line_gap','LquestionController@single_line_store')->name('listening.sub.single_line_store');
+
+            /*adding table with two row and left answer*/
+                Route::get('admin/listening/{listening_id}/section/{section_id}/sub-section/{sub_section_id}/question_table_two_row_left_ans','LquestionController@table_two_row_left_ans')->name('listening.sub.table_row_two_left_ans_create');
+                Route::post('admin/listening/{listening_id}/section/{section_id}/sub-section/{sub_section_id}/question_table_two_row_left_ans','LquestionController@table_two_row_left_ans_store')->name('listening.sub.table_row_two_left_ans_store');
+            /*adding radio type with self option*/
+                Route::get('admin/listening/{listening_id}/section/{section_id}/sub-section/{sub_section_id}/question_radio_type_self_option','LquestionController@radio_type_self_option_index')->name('listening.sub.radio_type_self_option_index');
+                Route::post('admin/listening/{listening_id}/section/{section_id}/sub-section/{sub_section_id}/question_radio_type_self_option','LquestionController@radio_type_self_option_store')->name('listening.sub.radio_type_self_option_store');
+
+
+
+
+
+
+
+/*end listening sub section*/
+
+
+
+
+
+
+
+        /*end add sec*/
+
+
+/*end listening test exam */
 
 
 

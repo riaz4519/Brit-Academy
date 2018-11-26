@@ -296,7 +296,7 @@
                         <h4 class="alert alert-info">{{ 'no sub section been added' }}</h4>
 
                         <p><strong>Add {{$needed_question-$count}} questions in differentsub sections </strong></p>
-                        <a href="{{ route('reading.sub-section.create',['reading_id'=>Request::segment(4),'sub_id'=>$rsection->id]) }}" class="btn btn-info">Add Sub section</a>
+                        <a href="{{ route('reading.sub-section.update',['reading_id'=>Request::segment(4),'sub_id'=>$rsection->id]) }}" class="btn btn-info">Add Sub section</a>
                     </div>
                     @endif
                 @if($rsection->rsubs()->count() >=1  && ($needed_question-$count) !=0)
