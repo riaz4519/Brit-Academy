@@ -185,6 +185,32 @@ Route::get('/admin/show-all-steps/add-section/{reading_id}/show-section/{section
                 Route::get('admin/listening/{listening_id}/section/{section_id}/sub-section/{sub_section_id}/question_radio_type_self_option','LquestionController@radio_type_self_option_index')->name('listening.sub.radio_type_self_option_index');
                 Route::post('admin/listening/{listening_id}/section/{section_id}/sub-section/{sub_section_id}/question_radio_type_self_option','LquestionController@radio_type_self_option_store')->name('listening.sub.radio_type_self_option_store');
 
+            /*adding dropdown left single line*/
+                Route::get('admin/listening/{listening_id}/section/{section_id}/sub-section/{sub_section_id}/question_single_line_drop_down_left','LquestionController@single_line_drop_down_left_index')->name('listening.sub.single_line_drop_down_left_index');
+                Route::post('admin/listening/{listening_id}/section/{section_id}/sub-section/{sub_section_id}/question_single_line_drop_down_left','LquestionController@single_line_drop_down_left_store')->name('listening.sub.single_line_drop_down_store');
+
+            /*adding three column drop down*/
+                Route::get('admin/listening/{listening_id}/section/{section_id}/sub-section/{sub_section_id}/question_three_column_random_drop','LquestionController@question_three_column_random_drop_index')->name('listening.sub.three_column_drop_down_random_index');
+                Route::post('admin/listening/{listening_id}/section/{section_id}/sub-section/{sub_section_id}/question_three_column_random_drop','LquestionController@question_three_column_random_drop_store')->name('listening.sub.three_column_drop_down_random_store');
+
+            /*starting just answer model*/
+                Route::get('admin/listening/{listening_id}/section/{section_id}/sub-section/{sub_section_id}/question_create_single_field_answer','LquestionController@single_label_answer_index')->name('listening.sub.single_label_answer_create');
+                Route::post('admin/listening/{listening_id}/section/{section_id}/sub-section/{sub_section_id}/question_create_single_field_answer','LquestionController@single_label_answer_store')->name('listening.sub.single_label_answer_store');
+
+
+
+/*start adding subsection drop down*/
+            Route::get('admin/listening/{listening_id}/section/{section_id}/sub-section/{sub_section_id}/create_drop_down','LsubsectiondropController@create')->name('listening.sub.drop.create');
+            Route::post('admin/listening/{listening_id}/section/{section_id}/sub-section/{sub_section_id}/create_drop_down','LsubsectiondropController@store')->name('listening.sub.drop.store');
+
+        /*starting 3 column table with random drop down*/
+            Route::get('admin/listening/{listening_id}/section/{section_id}/sub-section/{sub_section_id}/create_drop_down_three_column_random','LsubThreeColumnTableDropdownController@create')->name('listening.sub.three_column_drop_create');
+            Route::post('admin/listening/{listening_id}/section/{section_id}/sub-section/{sub_section_id}/create_drop_down_three_column_random','LsubThreeColumnTableDropdownController@store')->name('listening.sub.three_column_drop_store');
+
+
+
+
+
 
 
 

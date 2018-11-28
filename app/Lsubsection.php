@@ -30,4 +30,15 @@ class Lsubsection extends Model
         return $this->hasMany('App\Lquestion');
 
     }
+
+    public function lsections(){
+
+        return $this->belongsTo('App\Lsection');
+    }
+    /*for sub section drop down option*/
+
+    public function lsubsectionDrops(){
+
+        return $this->hasMany('App\Lsubsectiondrop');
+    }
 }

@@ -133,19 +133,31 @@
                         {{--getting the require values--}}
                             @php
 
-                            $number_of_question_needed_for_section = ($lsection->end);
+                            $number_of_question_needed_for_section = $lsection->end;
+                            $number_of_question_added_to_section = $lsection->lsubsections->max('end');
+                            $decision_for_sub_section = 0;
+                            @endphp
 
-                            $number_of_question_added_to_section   = $lsection->lsubsections->max('end');
 
+                      {{--       @foreach($lsection->lsubsections as $lsubsection)
+
+                                 @php
+                                     $number_of_question_added_to_section += $lsubsection->questions->where('example','=',false)->count();
+                                 @endphp
+
+
+                                 @endforeach
+
+                             @php
                             $decision_for_sub_section = $number_of_question_needed_for_section-$number_of_question_added_to_section;
 
-                            @endphp
+                            @endphp--}}
 
 
                         {{--end getting the require values--}}
 
 
-                        @if($decision_for_sub_section >0)
+                        @if($number_of_question_needed_for_section != $number_of_question_added_to_section)
 
                             <div class="row mt-2 ">
 
@@ -258,7 +270,37 @@
 
                                         <div class="col-6 ">
 
-                                            <p class="font-bold border border-danger text-center" style="color: red">No Question Added.Have to Add {{ ( $lsubsection->end - $lsubsection->start +1)-$lsubsection->questions->count()." Question"  }} </p>
+                                            {{--for subsection drop down check--}}
+
+                                            @if($lsubsection->ltypes->name == 'Single Line - Drop Down Left' )
+
+                                                @if($lsubsection->lsubsectionDrops->count() == 0 )
+
+                                                    <p class="font-bold border border-danger text-center" style="color: red"> Nedd To add Drop Option first For the Subsection</p>
+
+
+                                                    @else
+                                                        <p class="font-bold border border-danger text-center" style="color: red">No Question Added.Have to Add {{ ( $lsubsection->end - $lsubsection->start +1)-$lsubsection->questions->count()." Question"  }} </p>
+
+                                                @endif
+
+                                            @elseif($lsubsection->ltypes->name == 'Table 3-column.Random Drop Down')
+
+                                                @if($lsubsection->lsubsectionDrops->count() == 0 )
+
+                                                    <p class="font-bold border border-danger text-center" style="color: red"> Nedd To add Drop Option first For the Subsection</p>
+
+                                                @else
+                                                    <p class="font-bold border border-danger text-center" style="color: red">No Question Added.Have to Add {{ ( $lsubsection->end - $lsubsection->start +1)-$lsubsection->questions->count()." Question"  }} </p>
+
+                                                @endif
+
+                                            @else
+
+                                                <p class="font-bold border border-danger text-center" style="color: red">No Question Added.Have to Add {{ ( $lsubsection->end - $lsubsection->start +1)-$lsubsection->questions->count()." Question"  }} </p>
+                                            @endif
+
+                                            {{--end sub section drop down check--}}
 
                                         </div>
                                         <div class="col-3">
@@ -269,15 +311,76 @@
 
                                                 @elseif($lsubsection->ltypes->name == 'Table - Two Row - Answer Left')
 
-                                                <a class="btn btn-outline-info text-center btn-sm" href="{{ route('listening.sub.table_row_two_left_ans_create',[Request::Segment(3),$lsection->id,$lsubsection->id]) }}">Add New Question</a>
+                                                    <a class="btn btn-outline-info text-center btn-sm" href="{{ route('listening.sub.table_row_two_left_ans_create',[Request::Segment(3),$lsection->id,$lsubsection->id]) }}">Add New Question</a>
 
                                                 @elseif($lsubsection->ltypes->name == 'Radio type')
-                                                <a class="btn btn-outline-info text-center btn-sm" href="{{ route('listening.sub.radio_type_self_option_index',[Request::Segment(3),$lsection->id,$lsubsection->id]) }}">Add New Question</a>
+                                                    <a class="btn btn-outline-info text-center btn-sm" href="{{ route('listening.sub.radio_type_self_option_index',[Request::Segment(3),$lsection->id,$lsubsection->id]) }}">Add New Question</a>
+
+
+                                                @elseif($lsubsection->ltypes->name == 'Single Line - Drop Down Left' )
+
+                                                    {{--for drop down--}}
+                                                    @if($lsubsection->lsubsectionDrops->count() == 0)
+
+                                                    <a class="btn btn-outline-info text-center btn-sm" href="{{ route('listening.sub.drop.create',[Request::Segment(3),$lsection->id,$lsubsection->id]) }}">Add DropDown</a>
+
+                                                     @else
+
+                                                        <a class="btn btn-outline-info text-center btn-sm" href="{{ route('listening.sub.single_line_drop_down_left_index',[Request::Segment(3),$lsection->id,$lsubsection->id]) }}">Add New Question</a>
+
+                                                    @endif
+
+
+
+                                                @elseif($lsubsection->ltypes->name == 'Table 3-column.Random Drop Down' )
+
+                                                    {{--for drop down--}}
+                                                    @if($lsubsection->lsubsectionDrops->count() == 0)
+
+                                                        <a class="btn btn-outline-info text-center btn-sm" href="{{ route('listening.sub.three_column_drop_create',[Request::Segment(3),$lsection->id,$lsubsection->id]) }}">Add DropDown</a>
+
+                                                    @else
+
+                                                        <a class="btn btn-outline-info text-center btn-sm" href="{{ route('listening.sub.three_column_drop_down_random_index',[Request::Segment(3),$lsection->id,$lsubsection->id]) }}">Add New Question</a>
+
+                                                    @endif
+
+
+                                                @elseif($lsubsection->ltypes->name == 'Single Label Answer' )
+
+                                                <a class="btn btn-outline-info text-center btn-sm" href="{{ route('listening.sub.single_label_answer_create',[Request::Segment(3),$lsection->id,$lsubsection->id]) }}">Add New Question</a>
+
 
 
                                             @endif
 
                                         </div>
+
+{{--
+                                        showing dropp down list for three column drop down random
+
+                                        @if($lsubsection->ltypes->name == 'Table 3-column.Random Drop Down' && $lsubsection->lsubsectionDrops->count() > 0)
+
+
+                                            <table class="table table-bordered table-hover">
+
+                                                <tbody>
+
+                                                @foreach($lsubsection->lsubsectionDrops as $)
+                                                    <tr>
+                                                        <td></td>
+                                                        <td></td>
+                                                    </tr>
+                                                </tbody>
+
+                                            </table>
+
+                                            @endif
+
+
+
+                                        end of drop down threee column random--}}
+
 
                                     </div>
                                     {{-- zero end--}}
@@ -440,7 +543,7 @@
 
                                         {{--start radio type self --}}
 
-                                    @elseif($lsubsection->ltypes->name = 'Radio type')
+                                    @elseif($lsubsection->ltypes->name == 'Radio type')
 
                                         {{--status--}}
 
@@ -488,6 +591,60 @@
 
 
                                         {{--end radio type self --}}
+
+                                        {{--random type three column--}}
+
+                                    @elseif($lsubsection->ltypes->name == 'Table 3-column.Random Drop Down')
+
+                                        <table class="table table-bordered ">
+
+                                            <tbody >
+                                            @foreach($lsubsection->questions as $question )
+
+
+                                                <tr value="{{ $question->id }}">
+                                                    {!! $question->question !!}
+                                                </tr>
+
+                                                @endforeach
+
+                                            </tbody>
+
+                                        </table>
+                                        <div class="row justify-content-center">
+
+                                            <div class="col-6 ">
+
+                                                <p class="font-bold border border-danger text-center" style="color: red">{{ $lsubsection->questions->where('example','=',false)->count() }} Question Added.Have to Add {{ ( $lsubsection->end - $lsubsection->start +1)-$lsubsection->questions->where('example','=',false)->count()." Question"  }} </p>
+
+                                            </div>
+                                            <div class="col-3">
+
+                                                <a class="btn btn-outline-info text-center btn-sm" href="{{ route('listening.sub.three_column_drop_down_random_index',[Request::Segment(3),$lsection->id,$lsubsection->id]) }}">Add New Question</a>
+
+
+                                            </div>
+
+                                        </div>
+
+                                        {{--end random type thre column--}}
+
+                                    @elseif($lsubsection->ltypes->name == 'Single Label Answer')
+
+                                        <div class="row">
+
+                                            @foreach($lsubsection->questions as $question)
+                                            <div class="col-12 mt-4 ml-2">
+                                                <span class="green-number" >{{ $question->qnumber }}</span>
+
+                                                <span><input type="text"  class="input-fild-border ml-3" name="question[{{$question->id}}]"></span>
+
+                                            </div>
+                                                @endforeach
+                                        </div>
+
+
+
 
                                 @endif
 
@@ -660,7 +817,9 @@
 
                                         {{--end Table - Two Row - Answer Left--}}
 
-                                    @elseif($lsubsection->ltypes->name = 'Radio type')
+                                    @elseif($lsubsection->ltypes->name == 'Radio type')
+
+
 
                                         {{--status--}}
 
@@ -686,7 +845,7 @@
 
 
                                         @foreach($lsubsection->questions as $question)
-                                            <div class="form-group pl-4">
+                                            <div class="form-group pl-4 ">
                                                 <div class="row">
                                                     <span class="green-number">{{$question->qnumber}}</span><strong class="col-9">{{$question->question}}</strong>
                                                 </div>
@@ -695,7 +854,7 @@
                                                 @foreach($question->lqoptions as $lqoption)
 
                                                     <div class="form-check">
-                                                        <strong class="mr-4 text-center">{{$lqoption->option}}.</strong><input class="form-check-input" name="{{$question->qnumber}}[]" type="radio" value="" id="defaultCheck1">
+                                                        <strong class="mr-4 text-center">{{$lqoption->option}}.</strong><input class="form-check-input" name="{{$question->id}}[]" type="radio" value="" id="defaultCheck1">
                                                         <label class="form-check-label" for="defaultCheck1">
                                                             {{$lqoption->value}}
                                                         </label>
@@ -706,6 +865,76 @@
                                             </div>
                                         @endforeach
 
+                                        {{--end radio type--}}
+
+
+                                        {{--drop down--}}
+
+                                        @elseif($lsubsection->ltypes->name == 'Single Line - Drop Down Left')
+                                            <div class="row justify-content-center">
+
+                                                <div class="col-6 ">
+
+                                                    <p class="font-bold border border-info text-center" style="color: green">{{ $number_of_question_added }} of {{ $number_of_question_added }} have been added. </p>
+
+                                                </div>
+
+                                            </div>
+
+                                        @foreach($lsubsection->questions as $question)
+                                            <div class="form-group pl-4 ">
+                                                <div class="row">
+                                                    <span class="green-number">{{$question->qnumber}}</span>
+                                                    <select class=" ml-2 col-3 form-control input-sm">
+                                                        <option></option>
+                                                        @foreach($lsubsection->lsubsectionDrops as $lsubsectionDrop)
+                                                            <option value="{{ $lsubsectionDrop->option }}">{{ $lsubsectionDrop->option }}</option>
+                                                            @endforeach
+                                                    </select>
+                                                    <strong class="col-6 mt-1">{{$question->question}}</strong>
+                                                </div>
+
+                                            </div>
+                                        @endforeach
+
+                                        {{--end drop down--}}
+
+                                    @elseif($lsubsection->ltypes->name == 'Table 3-column.Random Drop Down')
+
+                                        <table class="table table-bordered ">
+
+                                            <tbody >
+                                            @foreach($lsubsection->questions as $question )
+
+
+                                                <tr value="{{ $question->id }}">
+                                                    {!! $question->question !!}
+                                                </tr>
+
+                                            @endforeach
+
+                                            </tbody>
+
+                                        </table>
+                                        <table class="table table-bordered table-hover">
+
+                                            <tbody>
+
+                                            @foreach($lsubsection->lsubsectionDrops as $lsubsectionDrop)
+                                                <tr>
+                                                    <td>{{ $lsubsectionDrop->option }}</td>
+                                                    <td>{{ $lsubsectionDrop->value }}</td>
+                                                </tr>
+                                            @endforeach
+                                            </tbody>
+
+                                        </table>
+
+
+
+
+
+
 
                                     @endif
                                     {{-- end this is inner if for section type --}}
@@ -715,15 +944,9 @@
                                 {{--end all the question added showing list--}}
 
 
-
-
-
-
-
                                 @endforeach
 
                                 {{--end iterate sub section --}}
-
 
 
                                 @endif
@@ -758,6 +981,64 @@
     @endsection
 
 @section('script')
+
+
+    @foreach($listening->lsections as $lsection)
+
+
+        @foreach($lsection->lsubsections as $lsubsection)
+
+            @if($lsubsection->ltypes->name == "Table 3-column.Random Drop Down")
+
+                <script>
+
+                    $(document).ready(function () {
+
+
+                        $('.random-three-drop').each(function () {
+
+                            var value = $(this).html();
+                            var question_number_real = $(this).parent().parent().attr('value');
+                            var input = '';
+
+                            input += '<span class="green-number">';
+
+                            input += value;
+
+                            input += '</span>';
+                            input += '<select name="quiestion['+question_number_real+']" class="option-width-listening form-control" >';
+                            input +='<option></option>';
+                            @foreach($lsubsection->lsubsectionDrops as $lsubsectionDrop)
+
+                            input += '<option  value="{{$lsubsectionDrop->option}}">';
+                            input += '{{$lsubsectionDrop->option}}';
+                            input += '</option>';
+
+                            @endforeach
+                            input += '</select>';
+
+
+
+                            $(this).html(input);
+
+
+
+                            //this.html('foo');
+                        });
+
+                    })
+
+                </script>
+
+                @endif
+
+            @endforeach
+
+
+
+
+        @endforeach
+
 
     <script>
 

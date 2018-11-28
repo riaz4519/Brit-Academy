@@ -2011,6 +2011,30 @@ textarea:focus {
   border-style: none none solid none
 
 }
+.unseclectable-element{
+  -webkit-user-select: none;
+  -khtml-user-select: none;
+  -moz-user-select: none;
+  -ms-user-select: none;
+  user-select: none;
+}
+.option-width-listening{
+  padding: 0px 5px;
+
+  border-radius: 2px;
+
+  border: 1px solid #aaa;
+
+  margin: 0px 5px;
+
+  outline: none;
+  display: inline;
+  height: 10px;
+
+
+  max-width: 130px;
+
+}
 
 
 
