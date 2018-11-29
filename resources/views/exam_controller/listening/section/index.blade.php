@@ -133,9 +133,17 @@
                         {{--getting the require values--}}
                             @php
 
-                            $number_of_question_needed_for_section = $lsection->end;
-                            $number_of_question_added_to_section = $lsection->lsubsections->max('end');
-                            $decision_for_sub_section = 0;
+                            $end_point_of_section = $lsection->end;
+                            $end_point_of_subsection = $lsection->lsubsections->max('end');
+
+                            $question_needed_for_section = ($lsection->end - $lsection->start)+1;
+
+                            $min_point_of_subsection = $lsection->lsubsections->min('start');
+
+                            $number_question_added = ($end_point_of_subsection - $min_point_of_subsection)+1;
+
+                            $number_question_need_now = ($question_needed_for_section - $number_question_added);
+
                             @endphp
 
 
@@ -157,12 +165,12 @@
                         {{--end getting the require values--}}
 
 
-                        @if($number_of_question_needed_for_section != $number_of_question_added_to_section)
+                        @if($end_point_of_section != $end_point_of_subsection)
 
                             <div class="row mt-2 ">
 
                                 <div class="col-6">
-                                    <p class="font-bold" style="color: red">{{$decision_for_sub_section}} question Left .Need to add subsection</p>
+                                    <p class="font-bold" style="color: red">{{$number_question_need_now}} question Left .Need to add subsection</p>
                                 </div>
 
 
@@ -297,7 +305,7 @@
 
                                             @else
 
-                                                <p class="font-bold border border-danger text-center" style="color: red">No Question Added.Have to Add {{ ( $lsubsection->end - $lsubsection->start +1)-$lsubsection->questions->count()." Question"  }} </p>
+                                                <p class="font-bold border border-danger text-center" style="color: red">No Question Added.Have to Add {{ ( ($lsubsection->end - $lsubsection->start) +1)-$lsubsection->questions->count()." Question"  }} </p>
                                             @endif
 
                                             {{--end sub section drop down check--}}
@@ -349,6 +357,12 @@
                                                 @elseif($lsubsection->ltypes->name == 'Single Label Answer' )
 
                                                 <a class="btn btn-outline-info text-center btn-sm" href="{{ route('listening.sub.single_label_answer_create',[Request::Segment(3),$lsection->id,$lsubsection->id]) }}">Add New Question</a>
+                                                @elseif($lsubsection->ltypes->name == 'Single Line Right Gap' )
+
+                                                <a class="btn btn-outline-info text-center btn-sm" href="{{ route('listening.sub.single_line_right_gap_index',[Request::Segment(3),$lsection->id,$lsubsection->id]) }}">Add New Question</a>
+                                                @elseif($lsubsection->ltypes->name == 'Table row two - list item right' )
+
+                                                <a class="btn btn-outline-info text-center btn-sm" href="{{ route('listening.sub.table_row_two_right_list_item_index',[Request::Segment(3),$lsection->id,$lsubsection->id]) }}">Add New Question</a>
 
 
 
@@ -629,6 +643,9 @@
 
                                         {{--end random type thre column--}}
 
+
+                                        {{--single label anser --}}
+
                                     @elseif($lsubsection->ltypes->name == 'Single Label Answer')
 
                                         <div class="row">
@@ -642,6 +659,59 @@
                                             </div>
                                                 @endforeach
                                         </div>
+
+                                        {{--end single label answer--}}
+
+                                        {{--single line right gap--}}
+
+                                    @elseif($lsubsection->ltypes->name == 'Single Line Right Gap' )
+
+                                        {{--status--}}
+
+                                        <div class="row justify-content-center">
+
+                                            <div class="col-6 ">
+
+                                                <p class="font-bold border border-danger text-center" style="color: red">{{ $lsubsection->questions->where('example','=',false)->count() }} Question Added.Have to Add {{ ( $lsubsection->end - $lsubsection->start +1)-$lsubsection->questions->where('example','=',false)->count()." Question"  }} </p>
+
+                                            </div>
+                                            <div class="col-3">
+
+                                                <a class="btn btn-outline-info text-center btn-sm" href="{{ route('listening.sub.single_line_right_gap_index',[Request::Segment(3),$lsection->id,$lsubsection->id]) }}">Add New Question</a>
+
+
+                                            </div>
+
+                                        </div>
+
+                                        {{--status--}}
+
+                                    {{--question--}}
+
+                                        <div class="row">
+
+                                            @foreach($lsubsection->questions as $question)
+                                                <div class="col-12 mt-4 ml-2">
+                                                    <span class="green-number" >{{ $question->qnumber }}</span>
+
+                                                    <span><b>{{ $question->question }}</b></span>
+
+                                                    <span><input type="text"  class="input-fild-border ml-3" name="question[{{$question->id}}]"></span>
+
+                                                </div>
+                                            @endforeach
+                                        </div>
+
+
+                                    {{--end question--}}
+
+                                        {{--end single line right gap--}}
+
+
+
+                                    @elseif($lsubsection->ltypes->name == 'Table row two - list item right' )
+
+                                        
 
 
 
@@ -899,6 +969,9 @@
 
                                         {{--end drop down--}}
 
+
+                                        {{--start three column table random drop down--}}
+
                                     @elseif($lsubsection->ltypes->name == 'Table 3-column.Random Drop Down')
 
                                         <table class="table table-bordered ">
@@ -930,7 +1003,80 @@
 
                                         </table>
 
+                                        {{--end of three column random drop down--}}
 
+
+
+
+                                        {{--single label anser --}}
+
+                                    @elseif($lsubsection->ltypes->name == 'Single Label Answer')
+
+                                        <div class="row justify-content-center">
+
+                                            <div class="col-6 ">
+
+                                                <p class="font-bold border border-info text-center" style="color: green">{{ $number_of_question_added }} of {{ $number_of_question_added }} have been added. </p>
+
+                                            </div>
+
+                                        </div>
+
+                                        <div class="row">
+
+                                            @foreach($lsubsection->questions as $question)
+                                                <div class="col-12 mt-4 ml-2">
+                                                    <span class="green-number" >{{ $question->qnumber }}</span>
+
+                                                    <span><input type="text"  class="input-fild-border ml-3" name="question[{{$question->id}}]"></span>
+
+                                                </div>
+                                            @endforeach
+                                        </div>
+
+                                        {{--end single label answer--}}
+
+
+
+                                        {{--single line right gap--}}
+
+                                    @elseif($lsubsection->ltypes->name == 'Single Line Right Gap' )
+
+                                        {{--status--}}
+
+
+                                        <div class="row justify-content-center">
+
+                                            <div class="col-6 ">
+
+                                                <p class="font-bold border border-info text-center" style="color: green">{{ $number_of_question_added }} of {{ $number_of_question_added }} have been added. </p>
+
+                                            </div>
+
+                                        </div>
+
+                                        {{--status--}}
+
+                                        {{--question--}}
+
+                                        <div class="row">
+
+                                            @foreach($lsubsection->questions as $question)
+                                                <div class="col-12 mt-4 ml-2">
+                                                    <span class="green-number" >{{ $question->qnumber }}</span>
+
+                                                    <span><b>{{ $question->question }}</b></span>
+
+                                                    <span><input type="text"  class="input-fild-border ml-3" name="question[{{$question->id}}]"></span>
+
+                                                </div>
+                                            @endforeach
+                                        </div>
+
+
+                                        {{--end question--}}
+
+                                        {{--end single line right gap--}}
 
 
 
@@ -938,6 +1084,8 @@
 
                                     @endif
                                     {{-- end this is inner if for section type --}}
+
+
 
                                 @endif
 
@@ -1047,9 +1195,9 @@
             $('.button-start-from').on('click',function () {
 
 
-                var start_from = $(this).attr('value');
+                var start_from = parseInt($(this).attr('value')*60);
 
-                audioPlay(start_from);
+                audioPlay(parseInt(start_from));
 
             });
 
@@ -1058,24 +1206,18 @@
 
             function audioPlay(start_from) {
 
-
-                start_from = start_from *60;
+                //alert(start_from);
 
                var audio =  $('#audio_sound');
 
                 audio.prop('currentTime',start_from);
 
-
-
                 if(audio.prop('currentTime') != start_from){
 
                     audioPlay(start_from);
 
-
                 }
                 audio.trigger('play');
-
-
 
 
             }

@@ -173,39 +173,62 @@ Route::get('/admin/show-all-steps/add-section/{reading_id}/show-section/{section
             Route::get('admin/listening/{listening_id}/section/{section_id}/create','LsubSectionController@create')->name('listening.section.sub.create');
             Route::post('admin/listening/{listening_id}/section/{section_id}/create','LsubSectionController@store')->name('listening.section.sub.store');
 
-            /*adding fill in the gaps single line*/
 
-                Route::get('admin/listening/{listening_id}/section/{section_id}/sub-section/{sub_section_id}/question_single_line_gap','LquestionController@single_line_index')->name('listening.sub.single_line_q');
-                Route::post('admin/listening/{listening_id}/section/{section_id}/sub-section/{sub_section_id}/question_single_line_gap','LquestionController@single_line_store')->name('listening.sub.single_line_store');
+            /*prefix for adding listening question and drop down*/
 
-            /*adding table with two row and left answer*/
-                Route::get('admin/listening/{listening_id}/section/{section_id}/sub-section/{sub_section_id}/question_table_two_row_left_ans','LquestionController@table_two_row_left_ans')->name('listening.sub.table_row_two_left_ans_create');
-                Route::post('admin/listening/{listening_id}/section/{section_id}/sub-section/{sub_section_id}/question_table_two_row_left_ans','LquestionController@table_two_row_left_ans_store')->name('listening.sub.table_row_two_left_ans_store');
-            /*adding radio type with self option*/
-                Route::get('admin/listening/{listening_id}/section/{section_id}/sub-section/{sub_section_id}/question_radio_type_self_option','LquestionController@radio_type_self_option_index')->name('listening.sub.radio_type_self_option_index');
-                Route::post('admin/listening/{listening_id}/section/{section_id}/sub-section/{sub_section_id}/question_radio_type_self_option','LquestionController@radio_type_self_option_store')->name('listening.sub.radio_type_self_option_store');
+            Route::group(['prefix'=>'admin/listening/{listening_id}/section/{section_id}/sub-section/{sub_section_id}/'],function (){
 
-            /*adding dropdown left single line*/
-                Route::get('admin/listening/{listening_id}/section/{section_id}/sub-section/{sub_section_id}/question_single_line_drop_down_left','LquestionController@single_line_drop_down_left_index')->name('listening.sub.single_line_drop_down_left_index');
-                Route::post('admin/listening/{listening_id}/section/{section_id}/sub-section/{sub_section_id}/question_single_line_drop_down_left','LquestionController@single_line_drop_down_left_store')->name('listening.sub.single_line_drop_down_store');
+                    /*adding fill in the gaps single line*/
 
-            /*adding three column drop down*/
-                Route::get('admin/listening/{listening_id}/section/{section_id}/sub-section/{sub_section_id}/question_three_column_random_drop','LquestionController@question_three_column_random_drop_index')->name('listening.sub.three_column_drop_down_random_index');
-                Route::post('admin/listening/{listening_id}/section/{section_id}/sub-section/{sub_section_id}/question_three_column_random_drop','LquestionController@question_three_column_random_drop_store')->name('listening.sub.three_column_drop_down_random_store');
+                    Route::get('question_single_line_gap','LquestionController@single_line_index')->name('listening.sub.single_line_q');
+                    Route::post('question_single_line_gap','LquestionController@single_line_store')->name('listening.sub.single_line_store');
 
-            /*starting just answer model*/
-                Route::get('admin/listening/{listening_id}/section/{section_id}/sub-section/{sub_section_id}/question_create_single_field_answer','LquestionController@single_label_answer_index')->name('listening.sub.single_label_answer_create');
-                Route::post('admin/listening/{listening_id}/section/{section_id}/sub-section/{sub_section_id}/question_create_single_field_answer','LquestionController@single_label_answer_store')->name('listening.sub.single_label_answer_store');
+                    /*adding table with two row and left answer*/
+                    Route::get('question_table_two_row_left_ans','LquestionController@table_two_row_left_ans')->name('listening.sub.table_row_two_left_ans_create');
+                    Route::post('question_table_two_row_left_ans','LquestionController@table_two_row_left_ans_store')->name('listening.sub.table_row_two_left_ans_store');
+                    /*adding radio type with self option*/
+                    Route::get('question_radio_type_self_option','LquestionController@radio_type_self_option_index')->name('listening.sub.radio_type_self_option_index');
+                    Route::post('question_radio_type_self_option','LquestionController@radio_type_self_option_store')->name('listening.sub.radio_type_self_option_store');
+
+                    /*adding dropdown left single line*/
+                    Route::get('question_single_line_drop_down_left','LquestionController@single_line_drop_down_left_index')->name('listening.sub.single_line_drop_down_left_index');
+                    Route::post('question_single_line_drop_down_left','LquestionController@single_line_drop_down_left_store')->name('listening.sub.single_line_drop_down_store');
+
+                    /*adding three column drop down*/
+                    Route::get('question_three_column_random_drop','LquestionController@question_three_column_random_drop_index')->name('listening.sub.three_column_drop_down_random_index');
+                    Route::post('question_three_column_random_drop','LquestionController@question_three_column_random_drop_store')->name('listening.sub.three_column_drop_down_random_store');
+
+                    /*starting just answer model*/
+                    Route::get('question_create_single_field_answer','LquestionController@single_label_answer_index')->name('listening.sub.single_label_answer_create');
+                    Route::post('question_create_single_field_answer','LquestionController@single_label_answer_store')->name('listening.sub.single_label_answer_store');
+
+                    /*single line with right gap */
+                    Route::get('single_line_right_gap','LquestionController@single_line_right_gap_index')->name('listening.sub.single_line_right_gap_index');
+                    Route::post('single_line_right_gap','LquestionController@single_line_right_gap_store')->name('listening.sub.single_line_right_gap_store');
+
+                    /*single line with right gap */
+                    Route::get('table_row_two_right_list_item','LquestionController@table_row_two_right_list_item_index')->name('listening.sub.table_row_two_right_list_item_index');
+                    Route::post('single_line_right_gap','LquestionController@table_row_two_right_list_item_store')->name('listening.sub.table_row_two_right_list_item_store');
 
 
 
-/*start adding subsection drop down*/
-            Route::get('admin/listening/{listening_id}/section/{section_id}/sub-section/{sub_section_id}/create_drop_down','LsubsectiondropController@create')->name('listening.sub.drop.create');
-            Route::post('admin/listening/{listening_id}/section/{section_id}/sub-section/{sub_section_id}/create_drop_down','LsubsectiondropController@store')->name('listening.sub.drop.store');
 
-        /*starting 3 column table with random drop down*/
-            Route::get('admin/listening/{listening_id}/section/{section_id}/sub-section/{sub_section_id}/create_drop_down_three_column_random','LsubThreeColumnTableDropdownController@create')->name('listening.sub.three_column_drop_create');
-            Route::post('admin/listening/{listening_id}/section/{section_id}/sub-section/{sub_section_id}/create_drop_down_three_column_random','LsubThreeColumnTableDropdownController@store')->name('listening.sub.three_column_drop_store');
+
+                /*start adding subsection drop down*/
+                Route::get('create_drop_down','LsubsectiondropController@create')->name('listening.sub.drop.create');
+                Route::post('create_drop_down','LsubsectiondropController@store')->name('listening.sub.drop.store');
+
+                /*starting 3 column table with random drop down*/
+                Route::get('create_drop_down_three_column_random','LsubThreeColumnTableDropdownController@create')->name('listening.sub.three_column_drop_create');
+                Route::post('create_drop_down_three_column_random','LsubThreeColumnTableDropdownController@store')->name('listening.sub.three_column_drop_store');
+
+
+
+
+
+            });
+
+
 
 
 
