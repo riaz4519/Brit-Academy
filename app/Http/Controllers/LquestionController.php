@@ -445,25 +445,53 @@ class LquestionController extends Controller
             $example = true;
             $request->qnumber = 0;
 
+
+
+
+            if ($request->has('row_start')){
+
+                $question = '<tr><td>'.$request->first_data.'</td>  <td><ul><li>'.$request->question.'</li>';
+
+
+
+            }
+            else if ($request->has('row_end')){
+
+                $question = '<li>'.$request->question. '</li> </ul></td></tr>';
+
+
+
+            }
+            else{
+                $question = '<li>'.$request->question.'</li>';
+            }
+
+        }else{
+
+
+
+            if ($request->has('row_start')){
+
+                 $question = '<tr><td>'.$request->first_data.'</td>  <td><ul><li>'.$request->question.'<span class="list-item-right" value="'.(Lquestion::all()->last()->id + 1).'">'.$request->qnumber.'</span></li>';
+
+
+
+            }
+            else if ($request->has('row_end')){
+
+                $question = '<li>'.$request->question.'<span class="list-item-right" value="'.(Lquestion::all()->last()->id + 1).'">'.$request->qnumber.'</span> </li> </ul></td></tr>';
+
+
+
+            }
+            else{
+                $question = '<li>'.$request->question.'<span class="list-item-right" value="'.(Lquestion::all()->last()->id + 1).'">'.$request->qnumber.'</span></li>';
+            }
+
+
+
         }
 
-        if ($request->has('row_start')){
-
-            $question = '<tr><td>'.$request->first_data.'</td>  <td><ul><li>'.$request->question.'</li>';
-
-
-
-        }
-        else if ($request->has('row_end')){
-
-            $question = '<li>'.$request->question. '</li> </ul></td></tr>';
-
-
-
-        }
-        else{
-            $question = '<li>'.$request->question.'</li>';
-        }
 
 
         $lquestion = new Lquestion();
@@ -477,7 +505,7 @@ class LquestionController extends Controller
 
 
 
-/*        if (!$request->has('example')){
+        if (!$request->has('example')){
 
             $lanswer = new Lanswer();
 
@@ -486,7 +514,7 @@ class LquestionController extends Controller
             $lanswer->save();
 
 
-        }*/
+        }
 
         \Session::flash('msg','Question number '.$request->qnumber." Created");
 

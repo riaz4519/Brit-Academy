@@ -710,6 +710,50 @@
 
 
                                     @elseif($lsubsection->ltypes->name == 'Table row two - list item right' )
+                                        {{--status--}}
+
+                                        <div class="row justify-content-center">
+
+                                            <div class="col-6 ">
+
+                                                <p class="font-bold border border-danger text-center" style="color: red">{{ $lsubsection->questions->where('example','=',false)->count() }} Question Added.Have to Add {{ ( $lsubsection->end - $lsubsection->start +1)-$lsubsection->questions->where('example','=',false)->count()." Question"  }} </p>
+
+                                            </div>
+                                            <div class="col-3">
+
+                                                <a class="btn btn-outline-info text-center btn-sm" href="{{ route('listening.sub.table_row_two_right_list_item_index',[Request::Segment(3),$lsection->id,$lsubsection->id]) }}">Add New Question</a>
+
+
+
+                                            </div>
+
+                                        </div>
+
+                                        {{--status--}}
+
+                                        {{--table row two  - list item table showing--}}
+
+                                        <div class="row">
+
+                                            <div class="col-12">
+
+                                                <table class="table table-bordered font-bold" >
+                                                    <tbody>
+
+                                                    @foreach($lsubsection->questions as $question)
+
+                                                        {!! $question->question !!}
+
+                                                    @endforeach
+
+                                                    </tbody>
+                                                </table >
+
+                                            </div>
+
+
+
+                                        </div>
 
 
 
@@ -1221,6 +1265,26 @@
 
 
             }
+
+
+            /*for table two row with left list iltem*/
+
+
+            $('.list-item-right').each(function () {
+
+                var question_number = $(this).html();
+
+                var question_id = $(this).attr('value');
+
+                var input = '';
+
+                input = '<span class="green-number">'+question_number+'<input name="question['+question_id+']" type="text" class=" input-fild-border">';
+
+                $(this).html(input);
+
+
+
+            });
 
 
         });
