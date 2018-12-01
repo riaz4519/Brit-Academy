@@ -711,7 +711,7 @@
 
                                     @elseif($lsubsection->ltypes->name == 'Table row two - list item right' )
 
-                                        
+
 
 
 
