@@ -303,9 +303,32 @@ Route::get('/admin/show-all-steps/add-section/{reading_id}/show-section/{section
 /*end admin exam controller  */
 
 
+/////////////////////////////////////////// Student ////////////////////////////////
+/*start with student controller*/
 
+
+Route::group(['prefix' => 'tests-library/'],function (){
+
+    Route::get('{test_name}','StudentAllTestController@index')->name('test-library.index');
+    Route::get('tests-room/{test_id}','StudentAllTestController@test_room')->name('test-library.test_room');
+    Route::get('tests-room/take-reading-test/{test_id}','StudentAllTestController@take_test')->name('test-library.test.take-reading-test');
+
+    Route::group(['prefix'=>'exam/'],function (){
+
+
+        Route::get('listening/{listening_id}','StudentListeningExamController@index')->name('test-library.exam.listening-exam');
+        Route::post('listening/{listening_id}','StudentListeningExamController@exam_finish')->name('test-library.exam.listening-exam.finish');
+
+    });
+
+
+});
+
+
+/*end of student controller*/
+
+////////////////////////////////////////////End student ///////////////////////////
 /*give test for check*/
-
 Route::get('/tests/exam','ExamForTestPurpose@index')->name('test.exam');
 Route::get('/tests/exam/{reading_id}/give','ExamForTestPurpose@give')->name('test.give.index');
 Route::post('/submit','ExamForTestPurpose@post')->name('post');

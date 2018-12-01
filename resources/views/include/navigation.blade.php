@@ -62,13 +62,13 @@
 
 
                             {{--practice exam for ielts based on categories--}}
-                            <li><a href="#">Practice Exam</a>
+                            <li><a href="{{ route('test-library.index','all') }}">Practice Exam</a>
                                 <ul class="dropdown">
 
 
-                                    <li><a href="single-course.html">Academic Tests</a></li>
-                                    <li><a href="single-course.html">General Tests</a></li>
-                                    <li><a href="{{route('test.exam')}}">Exam For Test</a></li>
+                                    <li><a href="{{ route('test-library.index','academic') }}">Academic Tests</a></li>
+                                    <li><a href="{{ route('test-library.index','general') }}">General Tests</a></li>
+                                    <li><a href="">Exam For Test</a></li>
 
 
                                 </ul>

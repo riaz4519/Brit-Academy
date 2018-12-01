@@ -31,6 +31,8 @@
                     <div class="card-header alert alert-info text-center">
 
                         <strong>Add question ( {{ $rsub->start }}-{{ $rsub->end }} ) Now add Question {{ ($rsub->start+$rsub->rquestions->count())  }} of {{ $rsub->type->name }}</strong>
+
+                        <p>{{ "<span class='passage-gap'>".($rsub->start+$rsub->rquestions->count())."</span>" }}</p>
                     </div>
                     <div class="card-body">
 

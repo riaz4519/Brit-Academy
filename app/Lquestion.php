@@ -17,7 +17,7 @@ class Lquestion extends Model
         ];
 
     public function answers(){
-        return $this->hasOne('App\Lanswer');
+        return $this->hasOne('App\Lanswer','lquestion_id');
     }
 
     public function lqoptions(){

@@ -1124,6 +1124,29 @@
 
 
 
+                                    @elseif($lsubsection->ltypes->name == 'Table row two - list item right' )
+
+                                        <div class="row">
+
+                                            <div class="col-12">
+
+                                                <table class="table table-bordered " >
+                                                    <tbody>
+
+                                                    @foreach($lsubsection->questions as $question)
+
+                                                        {!! $question->question !!}
+
+                                                    @endforeach
+
+                                                    </tbody>
+                                                </table >
+
+                                            </div>
+
+
+
+                                        </div>
 
 
                                     @endif
@@ -1198,7 +1221,7 @@
                             input += value;
 
                             input += '</span>';
-                            input += '<select name="quiestion['+question_number_real+']" class="option-width-listening form-control" >';
+                            input += '<select name="question['+question_number_real+']" class="option-width-listening form-control" >';
                             input +='<option></option>';
                             @foreach($lsubsection->lsubsectionDrops as $lsubsectionDrop)
 
