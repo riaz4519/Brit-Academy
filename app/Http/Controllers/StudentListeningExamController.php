@@ -28,9 +28,14 @@ class StudentListeningExamController extends Controller
     public function exam_finish(Request $request,$listening_id){
 
 
+
+
         foreach ($request->question as $key=>$value) {
 
-          echo  $key."<br>";
+
+          $question_ans = Lquestion::find($key)->answers->answer;
+
+          echo $question_ans."<br>";
 
 
 

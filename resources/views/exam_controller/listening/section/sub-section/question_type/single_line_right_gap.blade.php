@@ -46,7 +46,7 @@
 
                     </div>
 
-                    <form method="post" action="{{ route('listening.sub.single_line_right_gap_store',['listening_id'=>Request::Segment(3),'section_id'=>Request::Segment(5),'sub_section_id'=>$lsubsection->id]) }}" >
+                    <form method="post" action="{{ route('listening.sub.single_line_right_gap_store,['listening_id'=>Request::Segment(3),'section_id'=>Request::Segment(5),'sub_section_id'=>$lsubsection->id]) }}" >
                         {{csrf_field()}}
 
                         <input type="text" name="qnumber" value="{{ $lsubsection->start+$lsubsection->questions->where('example','=',false)->count() }}" hidden>
