@@ -323,6 +323,7 @@ Route::group(['prefix' => 'tests-library/'],function (){
         /*writing*/
 
         Route::get('writing/{writing_id}','StudentWritingExamController@index')->name('test.library.exam.listening-exam');
+        Route::post('writing/{writing_id}/{section_id}','StudentWritingExamController@finish')->name('test.library.exam.listening-exam.finish');
 
 
 

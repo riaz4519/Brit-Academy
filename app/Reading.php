@@ -27,4 +27,8 @@ class Reading extends Model
         return $this->belongsTo('App\Course');
     }
 
+    public function exam(){
+        return $this->hasOne('App\Exam','reading_id');
+    }
+
 }

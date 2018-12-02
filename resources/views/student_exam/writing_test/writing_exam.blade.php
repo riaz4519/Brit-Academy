@@ -60,9 +60,14 @@
                                 </button>
                             </div>
 
-                            <form class="modal-body" method="post" >
+                            <form action="{{ route('test.library.exam.listening-exam.finish',[$writing->id,$wsection->id]) }}" class="modal-body" method="post" >
 
-                                <textarea  name="passage" class="summernote-ui summernote"></textarea>
+                                {{ csrf_field() }}
+
+                                <textarea  name="passage" class="summernote-ui summernote" required >{{ old('passage') }}</textarea>
+
+
+                                <input type="submit" class="btn btn-success " value="Submit">
 
 
 

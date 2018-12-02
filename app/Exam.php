@@ -20,4 +20,8 @@ class Exam extends Model
         return $this->belongsToMany('App\Test');
     }
 
+
+
+
+
 }

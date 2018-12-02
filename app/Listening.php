@@ -22,5 +22,9 @@ class Listening extends Model
         return $this->hasMany('App\Lsection');
 
     }
+    public function exam(){
+
+        return $this->hasOne('App\Exam','listening_id');
+    }
 
 }

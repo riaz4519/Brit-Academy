@@ -2,9 +2,11 @@
 
 namespace App\Http\Controllers;
 
+use App\Examanswerstore;
 use App\Listening;
 use App\Lquestion;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 
 class StudentListeningExamController extends Controller
 {
@@ -31,6 +33,14 @@ class StudentListeningExamController extends Controller
         $answer_given  = 0;
         $total_question = 40;
 
+        $exam_id = Listening::find($listening_id)->exam->id;
+        $user_id = Auth::user()->id;
+
+       $exam_store_id = Examanswerstore::where([
+
+            ['user_id','=',$user_id],
+            ['exam_id','=',$exam_id]
+        ])->first()->id;
 
 
         foreach ($request->question as $key=>$value) {
@@ -63,8 +73,27 @@ class StudentListeningExamController extends Controller
         $status['ielts_point']  = $this->calculate_ielts_point($correct);
 
 
+        if ($exam_store_id >0){
 
 
+            $exam_answer_store = Examanswerstore::find($exam_store_id);
+
+
+            $exam_answer_store->listening_point = $status['ielts_point'];
+
+            $exam_answer_store->save();
+
+        }else {
+
+            $exam_answer_store = new Examanswerstore();
+            $exam_answer_store->user_id = $user_id;
+            $exam_answer_store->exam_id = $exam_id;
+
+            $exam_answer_store->listening_point = $status['ielts_point'];
+
+            $exam_answer_store->save();
+
+        }
 
 
         return view('student_exam.listening_test.listening_answer')->withStatus($status);

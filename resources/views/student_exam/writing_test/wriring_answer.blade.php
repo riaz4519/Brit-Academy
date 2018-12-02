@@ -11,6 +11,8 @@
 
             <div class="card-body">
 
+                <h5>Your Answer will be reviewed by a examiner then your result will be published</h5>
+
             </div>
 
         </div>

@@ -2,9 +2,11 @@
 
 namespace App\Http\Controllers;
 
+use App\Examanswerstore;
 use App\Reading;
 use App\Rquestion;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 
 class StudentReadingExamController extends Controller
 {
@@ -30,6 +32,15 @@ class StudentReadingExamController extends Controller
         $correct = 0;
         $answer_given  = 0;
         $total_question = 40;
+
+         $exam_id = Reading::find($reading_id)->exam->id;
+        $user_id = Auth::user()->id;
+
+        $exam_store_id = Examanswerstore::where([
+
+            ['user_id','=',$user_id],
+            ['exam_id','=',$exam_id]
+        ])->first()->id;
 
         foreach ($request->question as $key=>$value){
 
@@ -67,6 +78,30 @@ class StudentReadingExamController extends Controller
 
             $status['ielts_point']  = $this->calculate_ielts_point_general($correct);
         }
+
+        if ($exam_store_id >0){
+
+
+            $exam_answer_store = Examanswerstore::find($exam_store_id);
+
+
+            $exam_answer_store->reading_point = $status['ielts_point'];
+
+            $exam_answer_store->save();
+
+        }else {
+
+            $exam_answer_store = new Examanswerstore();
+            $exam_answer_store->user_id = $user_id;
+            $exam_answer_store->exam_id = $exam_id;
+
+            $exam_answer_store->reading_point = $status['ielts_point'];
+
+            $exam_answer_store->save();
+
+        }
+
+
 
 
         return view('student_exam.reading_test.reading_answer')->withStatus($status);

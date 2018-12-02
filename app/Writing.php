@@ -24,4 +24,9 @@ class Writing extends Model
     public function wsections(){
         return $this->hasMany('App\Wsection');
     }
+
+    public function exam(){
+        return $this->hasOne('App\Exam','writing_id');
+    }
+
 }
