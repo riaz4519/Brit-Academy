@@ -24,7 +24,7 @@ class Rquestion extends Model
 
     public function answer(){
 
-        return $this->hasMany('App\Answer');
+        return $this->hasOne('App\Answer');
 
     }
 

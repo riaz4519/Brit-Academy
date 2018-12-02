@@ -316,8 +316,21 @@ Route::group(['prefix' => 'tests-library/'],function (){
     Route::group(['prefix'=>'exam/'],function (){
 
 
+        /*listening*/
         Route::get('listening/{listening_id}','StudentListeningExamController@index')->name('test-library.exam.listening-exam');
         Route::post('listening/{listening_id}','StudentListeningExamController@exam_finish')->name('test-library.exam.listening-exam.finish');
+
+        /*writing*/
+
+        Route::get('writing/{writing_id}','StudentWritingExamController@index')->name('test.library.exam.listening-exam');
+
+
+
+        /*reading*/
+        Route::get('reading/{reading_id}','StudentReadingExamController@index')->name('test.library.exam.reading-exam');
+        Route::post('reading/{reading_id}','StudentReadingExamController@finish')->name('test.library.exam.reading-exam.finish');
+
+
 
     });
 

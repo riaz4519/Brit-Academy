@@ -32,6 +32,7 @@
 
                     <textarea id="summernote" name="passage" class="summernote-ui "></textarea>
                     <button type="submit"  class="btn btn-success mt-2">Submit</button>
+
                 </form>
 
 

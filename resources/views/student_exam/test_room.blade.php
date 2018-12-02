@@ -59,7 +59,7 @@
 
                         @else
 
-                            <a href="" class="btn btn-success mt-3">Take Test</a>
+                            <a href="{{ route('test.library.exam.reading-exam',$exam->reading_id) }}" class="btn btn-success mt-3">Take Test</a>
 
                         @endif
                     </div>
@@ -78,7 +78,7 @@
 
                         @else
 
-                            <a href="" class="btn btn-info mt-3">Take Test</a>
+                            <a href="{{ route('test.library.exam.listening-exam',$exam->writing_id) }}" class="btn btn-info mt-3">Take Test</a>
                         @endif
                     </div>
 

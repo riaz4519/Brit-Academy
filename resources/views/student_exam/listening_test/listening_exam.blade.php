@@ -405,6 +405,9 @@
 
                 </div>
             </form>
+
+
+
             <div class="col-4">
 
             </div>
@@ -417,6 +420,9 @@
     @endsection
 
 @section('script')
+
+
+
 
 
     @foreach($listening->lsections as $lsection)
@@ -479,6 +485,8 @@
     <script>
 
         $(document).ready(function () {
+
+
 
             $('.button-start-from').on('click',function () {
 
