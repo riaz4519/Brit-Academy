@@ -36,7 +36,9 @@ class StudentReadingExamController extends Controller
          $exam_id = Reading::find($reading_id)->exam->id;
         $user_id = Auth::user()->id;
 
-        $exam_store_id = Examanswerstore::where([
+        $exam_store_id = 0;
+
+        @$exam_store_id = Examanswerstore::where([
 
             ['user_id','=',$user_id],
             ['exam_id','=',$exam_id]

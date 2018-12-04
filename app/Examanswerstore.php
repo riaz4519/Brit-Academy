@@ -11,19 +11,10 @@ class Examanswerstore extends Model
 
     protected  $fillable =
         [
-
             'user_id',
             'exam_id',
-
-
         ];
 
-    public function examwritingstores(){
-
-
-        return $this->hasMany('App\Examwritingstore');
-
-    }
     public function exams(){
 
         return $this->belongsTo('App\Exam');
@@ -31,8 +22,29 @@ class Examanswerstore extends Model
 
     }
 
+
     public function users(){
 
         $this->belongsTo('App\User');
     }
+
+    public function listeningPoints(){
+
+        return $this->hasMany('App\Listeningpoint');
+
+    }
+
+    public function ReadingPoints(){
+
+        return $this->hasMany('App\Readingpoint');
+
+    }
+    public function writingPoints(){
+
+        return $this->hasMany('App\Writingpoint');
+
+    }
+
+
+
 }

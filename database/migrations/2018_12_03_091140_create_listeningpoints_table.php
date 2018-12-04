@@ -4,7 +4,7 @@ use Illuminate\Support\Facades\Schema;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
 
-class CreateExamanswerstoresTable extends Migration
+class CreateListeningpointsTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,11 +13,10 @@ class CreateExamanswerstoresTable extends Migration
      */
     public function up()
     {
-        Schema::create('examanswerstores', function (Blueprint $table) {
+        Schema::create('listeningpoints', function (Blueprint $table) {
             $table->increments('id');
-            $table->integer('user_id');
-            $table->integer('exam_id');
-
+            $table->integer('examanswerstore_id');
+            $table->float('point');
             $table->timestamps();
         });
     }
@@ -29,6 +28,6 @@ class CreateExamanswerstoresTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('examanswerstores');
+        Schema::dropIfExists('listeningpoints');
     }
 }

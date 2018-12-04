@@ -15,7 +15,7 @@ class Rsub extends Model
 
     public function type(){
 
-        return $this->belongsTo('App\type');
+        return $this->belongsTo('App\Type');
     }
 
     public function rquestions(){

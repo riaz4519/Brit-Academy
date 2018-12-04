@@ -5,7 +5,7 @@
 
 @section('css')
 
-    <link rel="stylesheet" href="{{ asset('summernote/summernote.css') }}">
+    <link rel="stylesheet" href="{{ asset('summernote/summernote-bs4.css') }}">
 
 @endsection
 
@@ -17,12 +17,17 @@
 
         {{--for showing two exams--}}
 
-        <div class="row">
+        <form   action="{{ route('test.library.exam.listening-exam.finish',$writing->id) }}"  method="post" class="row">
 
+            @php
+
+            $i=1;
+            $j=1;
+            @endphp
 
             @foreach($writing->wsections as $wsection)
 
-                <div class="card   col-11">
+                <div  class="card   col-11">
 
 
                     <div class="card-header border-danger ">
@@ -33,7 +38,7 @@
                         </div>
                         <div class="float-right">
 
-                            <button type="button" class="btn btn-primary" data-toggle="modal" data-target=".bd-example-modal-lg{{$wsection->id}}">Large modal</button>
+                            <button type="button" class="btn btn-primary" data-toggle="modal" data-target=".bd-example-modal-lg{{$wsection->id}}">Start Writing</button>
 
 
                             {{--<a href="{{ route('writing.section.edit',['writing_id'=>$writing->id,'wsection_id'=>$wsection->id]) }}" class="btn btn-info">Take test</a>--}}
@@ -49,7 +54,7 @@
 
                 </div>
 
-                <div class="modal modal-example fade bd-example-modal-lg{{$wsection->id}} "  data-backdrop="static" tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel" aria-hidden="true">
+                <div class="modal modal-example fade bd-example-modal-lg{{$wsection->id}} "   data-backdrop="static" tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel" aria-hidden="true">
                     <div class="modal-dialog modal-lg ">
                         <div class="modal-content">
 
@@ -60,18 +65,18 @@
                                 </button>
                             </div>
 
-                            <form action="{{ route('test.library.exam.listening-exam.finish',[$writing->id,$wsection->id]) }}" class="modal-body" method="post" >
+                            <div class="modal-body" >
 
                                 {{ csrf_field() }}
 
-                                <textarea  name="passage" class="summernote-ui summernote" required >{{ old('passage') }}</textarea>
-
-
-                                <input type="submit" class="btn btn-success " value="Submit">
+                                <textarea  name="passage{{ $i++ }}" class="summernote-ui summernote" id="idsummer{{ $j++ }}" required >{{ old('passage') }}</textarea>
 
 
 
-                            </form>
+
+
+
+                            </div>
                         </div>
                     </div>
                 </div>
@@ -81,7 +86,7 @@
             @endforeach
 
 
-        </div>
+        </form>
 
 
         {{--end showing two exams--}}
@@ -92,14 +97,23 @@
 
 @section('script')
 
-    <script src="{{ asset('summernote/summernote.js') }}"></script>
+    <script src="{{ asset('summernote/summernote-bs4.js') }}"></script>
     <script>
 
         $(document).ready(function() {
-            $('.summernote').summernote({
+            $('#idsummer1').summernote({
                 placeholder: 'Insert Passeage for section',
                 tabsize: 2,
                 height: 400,
+                toolbar: false,
+
+            });
+            $('#idsummer2').summernote({
+                placeholder: 'Insert Passeage for section',
+                tabsize: 2,
+                height: 400,
+                toolbar: false,
+
 
             });
         });

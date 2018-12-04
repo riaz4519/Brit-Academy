@@ -36,7 +36,7 @@ class StudentWritingExamController extends Controller
 
 
     }
-    public function finish(Request $request,$writing_id,$wsection_id){
+    public function finish(Request $request,$writing_id){
 
 
         $this->validate($request,
@@ -51,7 +51,7 @@ class StudentWritingExamController extends Controller
 
         $user_id = Auth::user()->id;
 
-         $ans = Examanswerstore::where([
+         @$ans = Examanswerstore::where([
 
             ['user_id','=',$user_id],
             ['exam_id','=',$exam_id]

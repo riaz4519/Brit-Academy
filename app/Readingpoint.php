@@ -4,7 +4,7 @@ namespace App;
 
 use Illuminate\Database\Eloquent\Model;
 
-class Examwritingstore extends Model
+class Readingpoint extends Model
 {
     //
 
@@ -12,13 +12,17 @@ class Examwritingstore extends Model
         [
 
             'examanswerstore_id',
-            'answer',
-            'wsection_id'
+            'point'
+
         ];
 
-    public function examanswerstore(){
+    public function examAnswerStore(){
 
         return $this->belongsTo('App\Examanswerstore');
+    }
 
+    public function readingAnswers(){
+
+        $this->hasMany('App\Readinganswer');
     }
 }
